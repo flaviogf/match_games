@@ -30,6 +30,9 @@ def upgrade():
                     sa.Column('password',
                               sa.String(250),
                               nullable=False),
+                    sa.Column('image',
+                              sa.String(250),
+                              nullable=False),
                     sa.Column('role_id',
                               sa.Integer,
                               sa.ForeignKey('role.id')))
