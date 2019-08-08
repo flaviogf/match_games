@@ -12,5 +12,7 @@ def create_app(config):
 
     from match_games import admin
     app.register_blueprint(admin.views.blueprint)
+    from match_games import store
+    app.register_blueprint(store.views.blueprint)
 
     return app

@@ -33,3 +33,16 @@ class User(db.Model):
 
     def __repr__(self):
         return f"<User(id=None, name='{self.name}', role='{self.role.name}')>"
+
+
+class Store(db.Model):
+    id = Column(Integer,
+                primary_key=True)
+    name = Column(String(250),
+                  nullable=False)
+    image = Column(String(250),
+                   nullable=False,
+                   default=True)
+
+    def __repr__(self):
+        return f"<Store(id={self.id}, name='{self.name}')>"
