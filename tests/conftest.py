@@ -1,3 +1,5 @@
+from os import path
+
 import pytest
 
 from match_games import bcrypt as _bcrypt
@@ -28,3 +30,11 @@ def db(app):
 @pytest.fixture
 def bcrypt(app):
     return _bcrypt
+
+
+@pytest.yield_fixture
+def image(app):
+    image_path = path.join(path.dirname(__file__), 'fixtures', 'default.png')
+
+    with open(image_path, 'rb') as image:
+        yield image

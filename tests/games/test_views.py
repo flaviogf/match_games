@@ -1,5 +1,27 @@
-class TestGames:
-    def test_should_return_status_200_when_list_games(self, client):
-        response = client.get('/games')
+from match_games.models import Game
 
-        assert 200 == response.status_code
+
+class TestGames:
+    def test_should_return_status_201_when_game_is_created(self, client, image):
+        data = {
+            'name': "Pokemon Let's Go",
+            'image': image
+        }
+
+        response = client.post('/games',
+                               data=data,
+                               content_type='multipart/form-data')
+
+        assert 201 == response.status_code
+
+    def test_should_insert_game_in_database(self, client, image):
+        data = {
+            'name': "Pokemon Let's Go",
+            'image': image
+        }
+
+        response = client.post('/games',
+                               data=data,
+                               content_type='multipart/form-data')
+
+        assert 1 == Game.query.count()

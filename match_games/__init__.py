@@ -32,4 +32,8 @@ def create_app(config):
     def index():
         return render_template('index.html')
 
+    from match_games import commands
+    app.cli.add_command(commands.create_roles)
+    app.cli.add_command(commands.create_admin)
+
     return app
