@@ -6,6 +6,7 @@ class Role(db.Model):
                    primary_key=True)
     name = db.Column(db.String(250),
                      nullable=False)
+    users = db.relationship('User', backref='role')
 
 
 class User(db.Model):
