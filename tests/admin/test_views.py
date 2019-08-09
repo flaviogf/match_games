@@ -1,25 +1,19 @@
-class TestAuthenticate:
-    def test_should_access_authenticate_return_status_200(self, client):
-        response = client.get('/admin')
+class TestAuthentication:
+    def test_should_access_authentication_return_status_200(self, client):
+        response = client.get('/admin/authentication')
 
         assert 200 == response.status_code
 
-    def test_should_return_field_required_when_email_not_is_inform(self, client):
-        data = {
-            'email': '',
-            'password': 'iris west'
-        }
 
-        response = client.post('/admin', data=data)
+class TestStores:
+    def test_should_access_stores_return_status_200(self, client):
+        response = client.get('/admin/stores')
 
-        assert b'This field is required.' in response.data
+        assert 200 == response.status_code
 
-    def test_should_return_field_required_when_password_not_is_inform(self, client):
-        data = {
-            'email': 'flash@dc.com',
-            'password': ''
-        }
 
-        response = client.post('/admin', data=data)
+class TestGames:
+    def test_should_access_games_return_status_200(self, client):
+        response = client.get('/admin/games')
 
-        assert b'This field is required.' in response.data
+        assert 200 == response.status_code

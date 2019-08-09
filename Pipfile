@@ -14,11 +14,8 @@ coverage = "*"
 flask = "*"
 alembic = "*"
 flask-sqlalchemy = "*"
-flask-login = "*"
-flask-bcrypt = "*"
 psycopg2-binary = "*"
-flask-wtf = "*"
-pillow = "*"
+gunicorn = "==19.9.0"
 
 [requires]
 python_version = "3.7"

@@ -32,7 +32,8 @@ def upgrade():
                               nullable=False),
                     sa.Column('image',
                               sa.String(250),
-                              nullable=False),
+                              nullable=False,
+                              default='default.jpg'),
                     sa.Column('role_id',
                               sa.Integer,
                               sa.ForeignKey('role.id')))

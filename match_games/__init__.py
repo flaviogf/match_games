@@ -1,18 +1,17 @@
-from flask import Flask
+from time import time
+
+from flask import Flask, Response, request
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
 
-def create_app(config):
+def create_app():
     app = Flask(__name__)
-    app.config.from_object(config)
 
     db.init_app(app)
 
     from match_games import admin
     app.register_blueprint(admin.views.blueprint)
-    from match_games import store
-    app.register_blueprint(store.views.blueprint)
 
     return app

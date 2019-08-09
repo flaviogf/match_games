@@ -1,14 +1,18 @@
 from flask import Blueprint, render_template
 
-from match_games.admin.forms import AuthenticateForm
-
 blueprint = Blueprint('admin', __name__)
 
 
-@blueprint.route('/admin', methods=['GET', 'POST'])
-def authenticate():
-    form = AuthenticateForm()
+@blueprint.route('/admin/authentication')
+def authentication():
+    return render_template('admin/authentication.html')
 
-    form.validate_on_submit()
 
-    return render_template('admin/authenticate.html', form=form)
+@blueprint.route('/admin/stores')
+def stores():
+    return render_template('admin/stores.html')
+
+
+@blueprint.route('/admin/games')
+def games():
+    return render_template('admin/games.html')

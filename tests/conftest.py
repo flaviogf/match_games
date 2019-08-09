@@ -6,7 +6,7 @@ from match_games import db as _db
 
 @pytest.yield_fixture
 def app():
-    app = create_app('config.Testing')
+    app = create_app()
 
     with app.app_context():
         _db.create_all()

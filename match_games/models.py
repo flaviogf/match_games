@@ -1,48 +1,57 @@
-from sqlalchemy import Column, ForeignKey, Integer, String
-from sqlalchemy.orm import relationship
-
 from match_games import db
 
 
 class Role(db.Model):
-    id = Column(Integer,
-                primary_key=True)
-    name = Column(String(250),
-                  nullable=False)
-    users = relationship('User', backref='role')
-
-    def __repr__(self):
-        return f"<Role(id={self.id}, name='{self.name}')>"
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    name = db.Column(db.String(250),
+                     nullable=False)
 
 
 class User(db.Model):
-    id = Column(Integer,
-                primary_key=True)
-    name = Column(String(250),
-                  nullable=False)
-    email = Column(String(250),
-                   nullable=False,
-                   unique=True)
-    password = Column(String(250),
-                      nullable=False)
-    image = Column(String(250),
-                   nullable=False)
-    role_id = Column(Integer,
-                     ForeignKey('role.id'),
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    name = db.Column(db.String(250),
                      nullable=False)
+    email = db.Column(db.String(250),
+                      nullable=False,
+                      unique=True)
+    password = db.Column(db.String(250),
+                         nullable=False)
+    image = db.Column(db.String(250),
+                      nullable=False,
+                      default='default.jpg')
+    role_id = db.Column(db.Integer,
+                        db.ForeignKey('role.id'))
 
-    def __repr__(self):
-        return f"<User(id=None, name='{self.name}', role='{self.role.name}')>"
+
+game_store = db.Table('game_store',
+                      db.Column('id',
+                                db.Integer,
+                                primary_key=True),
+                      db.Column('store_id',
+                                db.Integer,
+                                db.ForeignKey('store.id')),
+                      db.Column('game_id',
+                                db.Integer,
+                                db.ForeignKey('game.id')))
 
 
 class Store(db.Model):
-    id = Column(Integer,
-                primary_key=True)
-    name = Column(String(250),
-                  nullable=False)
-    image = Column(String(250),
-                   nullable=False,
-                   default=True)
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    name = db.Column(db.String(250),
+                     nullable=False)
+    image = db.Column(db.String(250),
+                      nullable=False)
 
-    def __repr__(self):
-        return f"<Store(id={self.id}, name='{self.name}')>"
+
+class Game(db.Model):
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    name = db.Column(db.String(250),
+                     nullable=False)
+    image = db.Column(db.String(250),
+                      nullable=False)
+    stores = db.relationship('Store',
+                             secondary=game_store)
