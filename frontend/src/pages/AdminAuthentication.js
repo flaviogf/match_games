@@ -5,7 +5,7 @@ import "./AdminAuthentication.css";
 
 import api from "../services/api";
 
-export default function AdminAuthentication() {
+export default function AdminAuthentication({ history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,7 +17,7 @@ export default function AdminAuthentication() {
         email,
         password
       })
-      .then(console.log)
+      .then(() => history.push("/"))
       .catch(console.error);
   }
 
