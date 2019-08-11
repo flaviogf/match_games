@@ -6,8 +6,8 @@ A simple application inspired in website Compare Games.
 
 - [ ] Admin
   - [X] Authenticate Admin
-  - [X] Register Store
-  - [ ] Register Game
+  - [ ] Register Store
+  - [X] Register Game
   - [ ] Register Game Store
 
 - [ ] User
