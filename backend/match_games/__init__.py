@@ -19,8 +19,8 @@ def create_app(config):
     bcrypt.init_app(app)
     cors.init_app(app)
 
-    from match_games import admin
-    app.register_blueprint(admin.views.blueprint)
+    from match_games import authentication
+    app.register_blueprint(authentication.views.blueprint)
 
     from match_games import commands
     app.cli.add_command(commands.create_admin)

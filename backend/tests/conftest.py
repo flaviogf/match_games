@@ -1,3 +1,4 @@
+import jwt
 import pytest
 
 from match_games import bcrypt as _bcrypt
@@ -38,3 +39,20 @@ def admin(db, bcrypt):
                         password=password_hash,
                         role='admin'))
     db.session.commit()
+
+
+@pytest.fixture
+def token(app, admin):
+    payload = {
+        'name': admin.name,
+        'email': admin.email,
+        'role': admin.role,
+        'iss': 'match_games:backend',
+        'aud': 'match_games:frontend'
+    }
+
+    secret = app.config.get('SECRET_KEY')
+
+    token = jwt.encode(payload, secret, 'HS256').decode('utf-8')
+
+    return token
