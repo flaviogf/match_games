@@ -14,7 +14,6 @@ export const Container = styled.main`
     background-color: #6ebc3b;
     position: absolute;
     content: "";
-    z-index: -1;
     height: 8px;
     right: 0;
     left: 0;
