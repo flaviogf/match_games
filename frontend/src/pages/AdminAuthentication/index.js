@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import api from "../../services/api";
-
 import { Container, Title, Form } from "./styles";
+
+import api from "../../services/api";
 
 export default function AdminAuthentication({ history }) {
   const [email, setEmail] = useState("");
@@ -12,11 +12,11 @@ export default function AdminAuthentication({ history }) {
     e.preventDefault();
 
     api
-      .post("/api/v1/admin/authentication", {
+      .post("/api/v1/authentication", {
         email,
         password
       })
-      .then(() => history.push("/"))
+      .then(() => history.push("/admin/games"))
       .catch(console.error);
   }
 

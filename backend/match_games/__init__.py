@@ -21,6 +21,8 @@ def create_app(config):
 
     from match_games import authentication
     app.register_blueprint(authentication.views.blueprint)
+    from match_games import games
+    app.register_blueprint(games.views.blueprint)
 
     from match_games import commands
     app.cli.add_command(commands.create_admin)

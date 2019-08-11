@@ -1,3 +1,5 @@
+from os.path import dirname, join
+
 import jwt
 import pytest
 
@@ -7,7 +9,7 @@ from match_games import db as _db
 from match_games.models import User
 
 
-@pytest.fixture
+@pytest.yield_fixture
 def app():
     app = create_app(config='match_games.config.Testing')
     with app.app_context():
@@ -56,3 +58,11 @@ def token(app, admin):
     token = jwt.encode(payload, secret, 'HS256').decode('utf-8')
 
     return token
+
+
+@pytest.yield_fixture
+def image(app):
+    image_path = join(dirname(__file__), 'fixtures', 'image.jpg')
+
+    with open(image_path, 'rb') as image:
+        yield image

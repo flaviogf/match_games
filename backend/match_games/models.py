@@ -15,3 +15,13 @@ class User(db.Model):
                       default='default.jpg')
     role = db.Column(db.String(250),
                      nullable=False)
+
+
+class Game(db.Model):
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    name = db.Column(db.String(250),
+                     nullable=False)
+    image = db.Column(db.String(250),
+                      nullable=False,
+                      default='default.jpg')

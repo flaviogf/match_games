@@ -8,12 +8,24 @@ import Footer from "../../components/Footer";
 
 import { Container, Content, Upload } from "./styles";
 
+import api from "../../services/api";
+
 export default function AdminGame() {
   const [name, setName] = useState("");
   const [image, setImage] = useState("Select a image.");
 
   function onSubmit(e) {
     e.preventDefault();
+
+    const form = new FormData();
+
+    form.append("name", name);
+    form.append("image", e.target.image.files[0]);
+
+    api
+      .post("/api/v1/games", form)
+      .then(console.log)
+      .catch(console.error);
   }
 
   return (
@@ -40,7 +52,10 @@ export default function AdminGame() {
               name="image"
               placeholder="Image"
               type="file"
-              onChange={e => setImage(e.target.value)}
+              accept="image/*"
+              onChange={e =>
+                e.target.files.length && setImage(e.target.files[0].name)
+              }
             />
           </Upload>
 
