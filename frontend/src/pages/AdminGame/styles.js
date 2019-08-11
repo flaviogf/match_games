@@ -31,9 +31,9 @@ export const Content = styled.section`
     display: flex;
     padding: 16px;
 
-    span {
-      margin-bottom: 10px;
-      font-size: 1.5rem;
+    h2 {
+      margin-bottom: 16px;
+      font-size: 2rem;
     }
 
     input {

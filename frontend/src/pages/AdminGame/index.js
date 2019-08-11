@@ -10,7 +10,7 @@ import { Container, Content, Upload } from "./styles";
 
 import api from "../../services/api";
 
-export default function AdminGame() {
+export default function AdminGame({ history }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("Select a image.");
 
@@ -24,7 +24,7 @@ export default function AdminGame() {
 
     api
       .post("/api/v1/games", form)
-      .then(console.log)
+      .then(() => history.push("/admin/games"))
       .catch(console.error);
   }
 
@@ -34,7 +34,7 @@ export default function AdminGame() {
       <Menu />
       <Content>
         <form onSubmit={onSubmit}>
-          <span>Game</span>
+          <h2>Game</h2>
 
           <input
             id="name"
@@ -62,7 +62,6 @@ export default function AdminGame() {
           <button type="submit">Save</button>
         </form>
       </Content>
-
       <Footer />
     </Container>
   );
