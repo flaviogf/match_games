@@ -2,11 +2,9 @@ import React, { useState } from "react";
 
 import { MdFileUpload } from "react-icons/md";
 
-import Navbar from "../../components/Navbar";
-import Menu from "../../components/Menu";
-import Footer from "../../components/Footer";
+import AdminTemplate from "../../components/AdminTemplate";
 
-import { Container, Content, Upload } from "./styles";
+import { Content, Upload } from "./styles";
 
 import api from "../../services/api";
 
@@ -29,9 +27,7 @@ export default function AdminGame({ history }) {
   }
 
   return (
-    <Container>
-      <Navbar />
-      <Menu />
+    <AdminTemplate>
       <Content>
         <form onSubmit={onSubmit}>
           <h2>Game</h2>
@@ -62,7 +58,6 @@ export default function AdminGame({ history }) {
           <button type="submit">Save</button>
         </form>
       </Content>
-      <Footer />
-    </Container>
+    </AdminTemplate>
   );
 }

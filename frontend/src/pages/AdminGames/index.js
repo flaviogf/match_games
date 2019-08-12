@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 
-import Navbar from "../../components/Navbar";
-import Menu from "../../components/Menu";
-import Footer from "../../components/Footer";
+import AdminTemplate from "../../components/AdminTemplate";
 
-import { Container, Content, Card, Table } from "./styles";
+import { Content, Card, Table } from "./styles";
 
 import api from "../../services/api";
 
@@ -24,9 +22,7 @@ export default function AdminGames() {
   }, []);
 
   return (
-    <Container>
-      <Navbar />
-      <Menu />
+    <AdminTemplate>
       <Content>
         <Card>
           <h2>Games</h2>
@@ -51,7 +47,6 @@ export default function AdminGames() {
           </Table>
         </Card>
       </Content>
-      <Footer />
-    </Container>
+    </AdminTemplate>
   );
 }
