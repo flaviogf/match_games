@@ -8,34 +8,6 @@ from PIL import Image
 from match_games import db
 
 
-def transational():
-    def decorator(fn):
-        @wraps(fn)
-        def wrapper(*args, **kwargs):
-            try:
-                result = fn(*args, **kwargs)
-                db.session.commit()
-                return result
-            except:
-                db.session.rollback()
-                raise
-        return wrapper
-    return decorator
-
-
-def json():
-    def decorator(fn):
-        @wraps(fn)
-        def wrapper(*args, **kwargs):
-            content, status_code = fn(*args, **kwargs)
-            response = Response(content_type='application/json',
-                                response=dumps(content),
-                                status=status_code)
-            return response
-        return wrapper
-    return decorator
-
-
 def validate(serializer):
     def decorator(fn):
         @wraps(fn)
@@ -47,9 +19,44 @@ def validate(serializer):
                       for field_error in field_errors]
 
             if errors:
-                return {'data': None, 'errors': errors}, 400
+                content = {'data': None, 'errors': errors}
+                response = Response(content_type='application/json',
+                                    response=dumps(content),
+                                    status=400)
+                return response
 
             return fn(*args, **kwargs)
+        return wrapper
+    return decorator
+
+
+def transational():
+    def decorator(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            try:
+                response = fn(*args, **kwargs)
+                db.session.commit()
+                return response
+            except:
+                db.session.rollback()
+                raise
+        return wrapper
+    return decorator
+
+
+def json():
+    def decorator(fn):
+        @wraps(fn)
+        def wrapper(*args, **kwargs):
+            content, status_code, *options = fn(*args, **kwargs)
+            headers = options[0] if options else {}
+            response = Response(content_type='application/json',
+                                headers=headers,
+                                response=dumps(content),
+                                status=status_code)
+
+            return response
         return wrapper
     return decorator
 

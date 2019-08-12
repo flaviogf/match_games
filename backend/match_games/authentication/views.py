@@ -3,7 +3,7 @@ from flask import Blueprint, current_app, jsonify, request
 
 from match_games import bcrypt
 from match_games.authentication.serializers import authentication_serializer
-from match_games.decorators import json, validate, transational
+from match_games.decorators import json, transational, validate
 from match_games.models import User
 
 blueprint = Blueprint('authentication', __name__)
