@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Navbar from "../../components/Navbar";
 import Menu from "../../components/Menu";
@@ -6,7 +6,23 @@ import Footer from "../../components/Footer";
 
 import { Container, Content, Card, Table } from "./styles";
 
+import api from "../../services/api";
+
 export default function AdminGames() {
+  const [games, setGames] = useState([]);
+
+  useEffect(() => {
+    function listGames() {
+      api
+        .get("/api/v1/games")
+        .then(res => res.data)
+        .then(body => setGames(body.data))
+        .catch(console.error);
+    }
+
+    listGames();
+  }, []);
+
   return (
     <Container>
       <Navbar />
@@ -24,16 +40,13 @@ export default function AdminGames() {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>Pokemon Let's Go Eevee</td>
-                <td>5cf34155f8ed4736.jpg</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Pokemon Let's Go Pikachu</td>
-                <td>5cf34155f8ed4736.jpg</td>
-              </tr>
+              {games.map(game => (
+                <tr key={game.id}>
+                  <td>{game.id}</td>
+                  <td>{game.name}</td>
+                  <td>{game.image}</td>
+                </tr>
+              ))}
             </tbody>
           </Table>
         </Card>
