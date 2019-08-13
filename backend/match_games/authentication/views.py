@@ -62,6 +62,6 @@ def validate_token():
                    audience='match_games:frontend',
                    algorithms=['HS256'])
     except jwt.DecodeError:
-        return {'data': False, 'errors': []}, 401
+        return {'data': False, 'errors': ['Invalid token.']}, 401
     else:
         return {'data': True, 'errors': []}, 200

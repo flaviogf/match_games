@@ -1,9 +1,7 @@
 from functools import wraps
 from json import dumps
-from os.path import join
 
-from flask import Response, current_app, request
-from PIL import Image
+from flask import Response, request
 
 from match_games import db
 
@@ -57,22 +55,5 @@ def json():
                                 status=status_code)
 
             return response
-        return wrapper
-    return decorator
-
-
-def upload(field='image'):
-    def decorator(fn):
-        def wrapper(*args, **kwargs):
-            response, status = fn(*args, **kwargs)
-
-            upload_dir = current_app.config.get('UPLOAD_DIR')
-            image_path = join(upload_dir, response['data']['image'])
-
-            image = Image.open(request.files[field])
-            image.thumbnail((100, 100))
-            image.save(image_path)
-
-            return response, status
         return wrapper
     return decorator

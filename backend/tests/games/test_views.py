@@ -68,7 +68,7 @@ class TestAll:
 
         last_game = games[-1]
 
-        assert 20 == last_game['id']
+        assert 10 == last_game['id']
 
     @pytest.fixture
     def games(self, db):
@@ -77,3 +77,89 @@ class TestAll:
             db.session.add(game)
 
         db.session.commit()
+
+
+class TestSingle:
+    def test_should_return_status_200_when_game_exists(self, client, game):
+        response = client.get(f'/api/v1/games/{game.id}')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_404_when_game_not_exists(self, client):
+        response = client.get(f'/api/v1/games/1')
+
+        assert 404 == response.status_code
+
+    def test_should_return_the_game_when_it_exists(self, client, game):
+        response = client.get(f'/api/v1/games/{game.id}')
+
+        game = response.json['data']
+
+        expected = {
+            'id': 1,
+            'name': "Pokemon Let's Go Pikachu",
+            'image': 'default.jpg'
+        }
+
+        assert expected == game
+
+    @pytest.fixture
+    def game(self, db):
+        db.session.add(Game(name="Pokemon Let's Go Pikachu"))
+        db.session.commit()
+        return Game.query.first()
+
+
+class TestUpdate:
+    def test_should_return_status_200_when_game_is_updated(self, client, game, image):
+        data = {
+            'name': 'xpto',
+            'image': image
+        }
+
+        response = client.put(f'/api/v1/games/{game.id}',
+                              data=data,
+                              content_type='multipart/form-data')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_400_when_name_not_is_informed(self, client, game, image):
+        data = {
+            'name': '',
+            'image': image
+        }
+
+        response = client.put(f'/api/v1/games/{game.id}',
+                              data=data,
+                              content_type='multipart/form-data')
+
+        assert 400 == response.status_code
+
+    def test_should_return_status_200_when_game_is_updated_without_a_new_image(self, client, game):
+        data = {
+            'name': 'xpto'
+        }
+
+        response = client.put(f'/api/v1/games/{game.id}',
+                              data=data,
+                              content_type='multipart/form-data')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_404_when_game_not_exists(self, client, image):
+        data = {
+            'name': "Pokemon Let's Go Eevee",
+            'image': image
+        }
+
+        response = client.put('/api/v1/games/1',
+                              data=data,
+                              content_type='multipart/form-data')
+
+        assert 404 == response.status_code
+
+    @pytest.fixture
+    def game(self, db):
+        db.session.add(Game(name="Pokemon Let's Go Pikachu"))
+        db.session.commit()
+        return Game.query.first()
