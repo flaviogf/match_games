@@ -36,11 +36,13 @@ def bcrypt(app):
 @pytest.fixture
 def admin(db, bcrypt):
     password_hash = bcrypt.generate_password_hash('xpto').decode('utf-8')
-    db.session.add(User(name='barry',
-                        email='flash@dc.com',
-                        password=password_hash,
-                        role='admin'))
+    admin = User(name='barry',
+                 email='flash@dc.com',
+                 password=password_hash,
+                 role='admin')
+    db.session.add(admin)
     db.session.commit()
+    return admin
 
 
 @pytest.fixture

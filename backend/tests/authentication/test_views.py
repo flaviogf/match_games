@@ -48,3 +48,23 @@ class TestAuthentication:
         response = client.post('/api/v1/authentication', json=data)
 
         assert response.json['data']['token']
+
+
+class TestValidateToken:
+    def test_should_return_status_200_when_token_is_validated(self, client, token):
+        headers = {'Authorization': f'Bearer {token}'}
+
+        response = client.post('/api/v1/authentication/validate-token',
+                               headers=headers)
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_401_when_token_not_is_validated(self, client):
+        token = 'wrong'
+
+        headers = {'Authorization': f'Bearer {token}'}
+
+        response = client.post('/api/v1/authentication/validate-token',
+                               headers=headers)
+
+        assert 401 == response.status_code

@@ -1,3 +1,5 @@
+import re
+
 import jwt
 from flask import Blueprint, current_app, jsonify, request
 
@@ -41,3 +43,25 @@ def authentication():
         return {'data': data, 'errors': []}, 200
 
     return {'data': None, 'errors': ['Email or password invalid']}, 401
+
+
+@blueprint.route('/api/v1/authentication/validate-token', methods=['POST'])
+@transational()
+@json()
+def validate_token():
+    token = request.headers.get('Authorization', '')
+
+    token = re.sub(r'Bearer\s', '', token)
+
+    secret = current_app.config.get('SECRET_KEY')
+
+    try:
+        jwt.decode(token,
+                   key=secret,
+                   issuer='match_games:backend',
+                   audience='match_games:frontend',
+                   algorithms=['HS256'])
+    except jwt.DecodeError:
+        return {'data': False, 'errors': []}, 401
+    else:
+        return {'data': True, 'errors': []}, 200
