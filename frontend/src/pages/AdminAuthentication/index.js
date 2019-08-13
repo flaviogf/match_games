@@ -16,7 +16,12 @@ export default function AdminAuthentication({ history }) {
         email,
         password
       })
-      .then(() => history.push("/admin/games"))
+      .then(res => res.data.data)
+      .then(data => {
+        localStorage.setItem("__user", JSON.stringify(data));
+        localStorage.setItem("__token", data.token);
+      })
+      .then(() => history.push("/admin"))
       .catch(console.error);
   }
 
