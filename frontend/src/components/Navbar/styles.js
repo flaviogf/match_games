@@ -13,9 +13,8 @@ export const Container = styled.nav`
 
   h1 {
     font-family: "Oswald", sans-serif;
-    letter-spacing: -2px;
-    font-weight: bold;
-    font-size: 2rem;
+    text-transform: uppercase;
+    font-size: 1.5rem;
   }
 `;
 

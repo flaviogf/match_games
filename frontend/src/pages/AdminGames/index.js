@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 
+import { Link } from "react-router-dom";
+
+import { MdAdd } from "react-icons/md";
+
 import AdminTemplate from "../../components/AdminTemplate";
 
-import { Content, Card, Table } from "./styles";
+import { Content, Card, Table, CardHeader } from "./styles";
 
 import api from "../../services/api";
 
@@ -25,7 +29,13 @@ export default function AdminGames() {
     <AdminTemplate>
       <Content>
         <Card>
-          <h2>Games</h2>
+          <CardHeader>
+            <h2>Games</h2>
+
+            <Link to="/admin/games/create">
+              <MdAdd size="24px" color="#d8d8d8" />
+            </Link>
+          </CardHeader>
 
           <Table>
             <thead>

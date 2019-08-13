@@ -11,7 +11,7 @@ export const Container = styled.main`
     "footer";
 
   @media (min-width: 768px) {
-    grid-template-columns: 275px 1fr;
+    grid-template-columns: 230px 1fr;
     grid-template-areas:
       "navbar navbar"
       "menu content"
