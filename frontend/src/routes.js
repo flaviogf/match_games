@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
-  Redirect,
-  Switch
+  Switch,
+  Redirect
 } from "react-router-dom";
 
 import Games from "./pages/Games";
@@ -20,14 +20,17 @@ export default function Routes() {
     <Router>
       <Switch>
         <Route path="/" exact component={Games} />
-        <AnonymousRoute
-          path="/admin/authentication"
-          component={AdminAuthentication}
-        />
+
         <PrivateRoute path="/admin" exact component={AdminDashboard} />
+
+        <Route path="/admin/authentication" component={AdminAuthentication} />
+
         <PrivateRoute path="/admin/games" exact component={AdminGames} />
         <PrivateRoute path="/admin/games/create" component={AdminGame} />
+
         <PrivateRoute path="/admin/stores" exact component={AdminStores} />
+
+        <Redirect to="/" />
       </Switch>
     </Router>
   );
@@ -35,54 +38,9 @@ export default function Routes() {
 
 function PrivateRoute({ component: Component, ...rest }) {
   useEffect(() => {
-    function validateToken() {
-      const token = localStorage.getItem("__token");
-
-      api.post(
-        "/api/v1/authentication/validate-token",
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-    }
-
-    validateToken();
+    const headers = { Authorization: localStorage.getItem("__token") };
+    api.post("/api/v1/authentication/validate-token", {}, { headers });
   });
 
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        localStorage.getItem("__token") ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/admin/authentication",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
-
-function AnonymousRoute({ component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        localStorage.getItem("__token") ? (
-          <Redirect
-            to={{
-              pathname: "/admin",
-              state: { from: props.location }
-            }}
-          />
-        ) : (
-          <Component {...props} />
-        )
-      }
-    />
-  );
+  return <Route {...rest} render={props => <Component {...props} />} />;
 }

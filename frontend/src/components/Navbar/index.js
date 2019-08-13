@@ -1,17 +1,25 @@
 import React, { useState, useEffect } from "react";
 
+import { withRouter } from "react-router-dom";
+
 import { MdArrowDropDown, MdPerson, MdExitToApp } from "react-icons/md";
 
 import { Container, Avatar, Menu, MenuItem } from "./styles";
 
-export default function Navbar() {
+function Navbar({ history }) {
   const [visible, setvisible] = useState(false);
   const [username, setUsername] = useState("");
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("__user"));
+    if (!user) return;
     setUsername(user.name[0].toUpperCase());
   }, [username]);
+
+  function logout() {
+    localStorage.clear();
+    history.push("/admin/authentication");
+  }
 
   return (
     <Container>
@@ -28,7 +36,7 @@ export default function Navbar() {
           <span>Account</span>
         </MenuItem>
 
-        <MenuItem>
+        <MenuItem onClick={logout}>
           <MdExitToApp />
           <span>Logout</span>
         </MenuItem>
@@ -36,3 +44,5 @@ export default function Navbar() {
     </Container>
   );
 }
+
+export default withRouter(Navbar);

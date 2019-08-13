@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Container, Title, Form } from "./styles";
 
@@ -7,6 +7,12 @@ import api from "../../services/api";
 export default function AdminAuthentication({ history }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem("__token"));
+    if (!token) return;
+    history.push("/admin");
+  });
 
   function onSubmit(e) {
     e.preventDefault();
@@ -19,9 +25,9 @@ export default function AdminAuthentication({ history }) {
       .then(res => res.data.data)
       .then(data => {
         localStorage.setItem("__user", JSON.stringify(data));
-        localStorage.setItem("__token", data.token);
+        localStorage.setItem("__token", `Bearer ${data.token}`);
+        history.push("/admin");
       })
-      .then(() => history.push("/admin"))
       .catch(console.error);
   }
 
