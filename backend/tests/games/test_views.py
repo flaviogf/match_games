@@ -54,21 +54,21 @@ class TestAll:
 
         assert isinstance(games, list)
 
-    def test_should_return_ten_games_per_request(self, client, games):
+    def test_should_return_eight_games_per_request(self, client, games):
         response = client.get('/api/v1/games?page=2')
 
         games = response.json['data']
 
-        assert 10 == len(games)
+        assert 8 == len(games)
 
-    def test_should_return_last_ten_games_when_requested_page_2(self, client, games):
+    def test_should_return_last_six_games_when_requested_page_2(self, client, games):
         response = client.get('/api/v1/games?page=2')
 
         games = response.json['data']
 
         last_game = games[-1]
 
-        assert 10 == last_game['id']
+        assert 6 == last_game['id']
 
     @pytest.fixture
     def games(self, db):
@@ -157,6 +157,29 @@ class TestUpdate:
                               content_type='multipart/form-data')
 
         assert 404 == response.status_code
+
+    @pytest.fixture
+    def game(self, db):
+        db.session.add(Game(name="Pokemon Let's Go Pikachu"))
+        db.session.commit()
+        return Game.query.first()
+
+
+class TestDestroy:
+    def test_should_return_status_200_when_destroy_the_game(self, client, game):
+        response = client.delete(f'/api/v1/games/{game.id}')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_404_when_game_not_exists(self, client):
+        response = client.delete('/api/v1/games/1')
+
+        assert 404 == response.status_code
+
+    def test_should_update_database_when_destroy_the_game(self, client, game):
+        response = client.delete(f'/api/v1/games/{game.id}')
+
+        assert 0 == Game.query.count()
 
     @pytest.fixture
     def game(self, db):

@@ -11,10 +11,12 @@ const onSuccess = res => {
 };
 
 const onError = err => {
-  if (err && err.response && err.response.status === 401) {
-    window.location.href = "/admin/authentication";
-  } else if (err && err.response && err.response.data) {
+  if (err && err.response && err.response.status === 400) {
     err.response.data.errors.forEach(toast.error);
+  } else if (err && err.response && err.response.status === 401) {
+    window.location.href = "/admin/authentication";
+  } else {
+    toast.error("Unexpected error.");
   }
 
   return Promise.reject(err);

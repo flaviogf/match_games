@@ -7,6 +7,7 @@ from match_games import db, q
 from match_games.decorators import json, transational, validate
 from match_games.games.serializers import create_game_serializer
 from match_games.models import Game
+from match_games.pagination import create_pagination
 from match_games.tasks import compress_image
 
 blueprint = Blueprint('games', __name__)
@@ -37,7 +38,7 @@ def create():
 @transational()
 @json()
 def all_():
-    limit = 10
+    limit = 8
     page = request.args.get('page', 1, type=int)
     offset = page * limit - limit
 
@@ -47,12 +48,13 @@ def all_():
              .offset(offset)
              .all())
 
-    count = Game.query.count()
+    pagination = create_pagination(page, Game.query.all())
 
     data = [dict(id=game.id,
                  name=game.name,
                  image=game.image) for game in games]
-    return {'data': data, 'errors': []}, 200, {'count': count}
+
+    return {'data': data, 'errors': []}, 200, pagination
 
 
 @blueprint.route('/api/v1/games/<int:id>', methods=['GET'])
@@ -95,5 +97,19 @@ def update(id):
         q.enqueue(compress_image, image_path)
 
     db.session.commit()
+
+    return {'data': None, 'errors': []}, 200
+
+
+@blueprint.route('/api/v1/games/<int:id>', methods=['DELETE'])
+@transational()
+@json()
+def destroy(id):
+    game = Game.query.filter(Game.id == id).first()
+
+    if not game:
+        return {'data': None, 'errors': ['Game with this id not exists.']}, 404
+
+    db.session.delete(game)
 
     return {'data': None, 'errors': []}, 200

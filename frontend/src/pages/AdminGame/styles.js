@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Content = styled.section`
   grid-area: content;
@@ -26,13 +26,25 @@ export const Content = styled.section`
       height: 35px;
       color: white;
     }
+  }
+`;
 
-    button {
+export const Buttons = styled.div`
+  display: flex;
+`;
+
+export const Button = styled.button`
+  border-radius: 2px;
+  margin-right: 6px;
+  padding: 8px;
+  border: none;
+  color: white;
+  width: 75px;
+
+  ${props =>
+    props.success &&
+    css`
       background-color: #6ebc3b;
-      border-radius: 2px;
-      padding: 8px;
-      border: none;
-      color: white;
 
       :hover {
         background-color: #528d2c;
@@ -41,8 +53,21 @@ export const Content = styled.section`
       :active {
         background-color: #365e1d;
       }
-    }
-  }
+    `}
+
+  ${props =>
+    props.danger &&
+    css`
+      background-color: #ef5350;
+
+      :hover {
+        background-color: #db1714;
+      }
+
+      :active {
+        background-color: #920f0d;
+      }
+    `}
 `;
 
 export const Upload = styled.div`
