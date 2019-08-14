@@ -10,16 +10,6 @@ export const Container = styled.main`
   height: 100vh;
   display: flex;
 
-  ::before {
-    background-color: #6ebc3b;
-    position: absolute;
-    content: "";
-    height: 8px;
-    right: 0;
-    left: 0;
-    top: 0;
-  }
-
   ::after {
     background-image: url(${background});
     background-size: cover;

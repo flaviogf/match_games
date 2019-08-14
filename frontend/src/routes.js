@@ -27,6 +27,7 @@ export default function Routes() {
 
         <PrivateRoute path="/admin/games" exact component={AdminGames} />
         <PrivateRoute path="/admin/games/create" component={AdminGame} />
+        <PrivateRoute path="/admin/games/:id" component={AdminGame} />
 
         <PrivateRoute path="/admin/stores" exact component={AdminStores} />
 

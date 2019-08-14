@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { toast } from "react-toastify";
+
 const api = axios.create({
   baseURL: "http://localhost:5000"
 });
@@ -9,8 +11,10 @@ const onSuccess = res => {
 };
 
 const onError = err => {
-  if (err.response && err.response.status === 401) {
+  if (err && err.response && err.response.status === 401) {
     window.location.href = "/admin/authentication";
+  } else if (err && err.response && err.response.data) {
+    err.response.data.errors.forEach(toast.error);
   }
 
   return Promise.reject(err);

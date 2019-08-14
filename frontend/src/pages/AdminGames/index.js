@@ -10,7 +10,7 @@ import { Content, Card, Table, CardHeader } from "./styles";
 
 import api from "../../services/api";
 
-export default function AdminGames() {
+export default function AdminGames({ history }) {
   const [games, setGames] = useState([]);
 
   useEffect(() => {
@@ -47,7 +47,10 @@ export default function AdminGames() {
             </thead>
             <tbody>
               {games.map(game => (
-                <tr key={game.id}>
+                <tr
+                  key={game.id}
+                  onClick={() => history.push(`/admin/games/${game.id}`)}
+                >
                   <td>{game.id}</td>
                   <td>{game.name}</td>
                   <td>{game.image}</td>

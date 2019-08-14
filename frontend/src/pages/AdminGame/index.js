@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { MdFileUpload } from "react-icons/md";
+
+import { toast } from "react-toastify";
 
 import AdminTemplate from "../../components/AdminTemplate";
 
@@ -8,9 +10,24 @@ import { Content, Upload } from "./styles";
 
 import api from "../../services/api";
 
-export default function AdminGame({ history }) {
+export default function AdminGame({ history, match }) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("Select a image.");
+
+  useEffect(() => {
+    function loadGame() {
+      api
+        .get(`/api/v1/games/${match.params.id}`)
+        .then(res => res.data.data)
+        .then(data => {
+          setName(data.name);
+          setImage(data.image);
+        })
+        .catch(console.error);
+    }
+
+    loadGame();
+  }, [match.params.id]);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -20,9 +37,14 @@ export default function AdminGame({ history }) {
     form.append("name", name);
     form.append("image", e.target.image.files[0]);
 
-    api
-      .post("/api/v1/games", form)
-      .then(() => history.push("/admin/games"))
+    const method = match.params.id ? "put" : "post";
+    const id = match.params.id ? `/${match.params.id}` : "";
+
+    api[method](`/api/v1/games${id}`, form)
+      .then(() => {
+        toast.success("Operation successfully performed.");
+        history.push("/admin/games");
+      })
       .catch(console.error);
   }
 
