@@ -2,12 +2,12 @@ import secrets
 from os.path import join
 
 from flask import Blueprint, current_app, request
-from PIL import Image
 
 from match_games import db, q
 from match_games.decorators import json, transational, validate
 from match_games.games.serializers import create_game_serializer
 from match_games.models import Game
+from match_games.tasks import compress_image
 
 blueprint = Blueprint('games', __name__)
 
@@ -23,13 +23,10 @@ def create():
     game = Game(name=body.get('name'))
 
     if files:
-        image_name = f'{secrets.token_hex(8)}.jpg'
-        upload_dir = current_app.config.get('UPLOAD_DIR')
-        image_path = join(upload_dir, image_name)
-        image = Image.open(files.get('image'))
-        image.thumbnail((100, 100))
-        image.save(image_path)
-        game.image = image_name
+        game.image = f'{secrets.token_hex(8)}.jpg'
+        image_path = join(current_app.config.get('UPLOAD_DIR'), game.image)
+        files.get('image').save(image_path)
+        q.enqueue(compress_image, image_path)
 
     db.session.add(game)
 
@@ -92,13 +89,10 @@ def update(id):
     game.name = body.get('name')
 
     if files:
-        image_name = f'{secrets.token_hex(8)}.jpg'
-        upload_dir = current_app.config.get('UPLOAD_DIR')
-        image_path = join(upload_dir, image_name)
-        image = Image.open(files.get('image'))
-        image.thumbnail((100, 100))
-        image.save(image_path)
-        game.image = image_name
+        game.image = f'{secrets.token_hex(8)}.jpg'
+        image_path = join(current_app.config.get('UPLOAD_DIR'), game.image)
+        files.get('image').save(image_path)
+        q.enqueue(compress_image, image_path)
 
     db.session.commit()
 
