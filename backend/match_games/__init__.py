@@ -20,7 +20,7 @@ def create_app(config):
     db.init_app(app)
     ma.init_app(app)
     bcrypt.init_app(app)
-    cors.init_app(app)
+    cors.init_app(app, expose_headers='*')
 
     from match_games import authentication
     app.register_blueprint(authentication.views.blueprint)

@@ -13,6 +13,7 @@ export const Container = styled.div`
   input {
     height: 100% !important;
     position: absolute;
+    cursor: pointer;
     width: 100%;
     opacity: 0;
     left: 0;

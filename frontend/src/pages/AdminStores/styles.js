@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Content = styled.section`
-  grid-area: content;
+export const Container = styled.div`
+  grid: content;
   padding: 16px;
 `;

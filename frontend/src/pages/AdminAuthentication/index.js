@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Container, Title, Form } from "./styles";
 
-import Input from '../../components/Input'
+import Input from "../../components/Input";
 
 import api from "../../services/api";
 
@@ -14,7 +14,7 @@ export default function AdminAuthentication({ history }) {
     const token = JSON.parse(localStorage.getItem("__token"));
     if (!token) return;
     history.push("/admin");
-  });
+  }, [history]);
 
   function onSubmit(e) {
     e.preventDefault();

@@ -6,7 +6,7 @@ from flask import Blueprint, current_app, request
 from match_games import db, q
 from match_games.decorators import json, transational, validate
 from match_games.models import Store
-from match_games.stores.serializers import create_store
+from match_games.stores.serializers import create_store_serializer
 from match_games.tasks import compress_image
 from match_games.pagination import create_pagination
 
@@ -14,7 +14,7 @@ blueprint = Blueprint('stores', __name__)
 
 
 @blueprint.route('/api/v1/stores', methods=['POST'])
-@validate(create_store)
+@validate(create_store_serializer)
 @transational()
 @json()
 def create():

@@ -3,3 +3,4 @@ source=match_games
 omit=
     match_games/__init__.py
     match_games/commands.py
+    match_games/tasks.py

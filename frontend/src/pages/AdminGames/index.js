@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { MdAdd } from "react-icons/md";
 
 import AdminTemplate from "../../components/AdminTemplate";
+import Table from "../../components/Table";
+import Card, { CardHeader } from "../../components/Card";
 
-import { Content, Card, Table, CardHeader } from "./styles";
+import { Content } from "./styles";
 
 import api from "../../services/api";
 
