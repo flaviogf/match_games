@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import { MdArrowDropDown, MdPerson, MdExitToApp } from "react-icons/md";
 
@@ -23,7 +23,9 @@ function Navbar({ history }) {
 
   return (
     <Container>
-      <h1>Match Games</h1>
+      <Link to="/admin">
+        <h1>Match Games</h1>
+      </Link>
 
       <Avatar onClick={() => setvisible(!visible)}>
         <MdArrowDropDown size="25px" />

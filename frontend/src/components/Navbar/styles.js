@@ -10,6 +10,11 @@ export const Container = styled.nav`
   display: flex;
   color: white;
   z-index: 20;
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
   h1 {
     font-family: "Oswald", sans-serif;

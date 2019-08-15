@@ -1,22 +1,16 @@
 import styled, { css } from "styled-components";
 
-export const Content = styled.section`
-  grid-area: content;
+export const Container = styled.div`
+  grid: content;
+  margin: 16px;
+`;
+
+export const Form = styled.form`
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+  background-color: #1c2937;
+  flex-direction: column;
   padding: 16px;
-
-  form {
-    box-shadow: 0px 2px 4px 1px rgba(0, 0, 0, 0.3);
-    background-color: #1c2937;
-    flex-direction: column;
-    border-radius: 2px;
-    display: flex;
-    padding: 16px;
-
-    h2 {
-      margin-bottom: 16px;
-      font-size: 2rem;
-    }
-  }
+  display: flex;
 `;
 
 export const Buttons = styled.div`

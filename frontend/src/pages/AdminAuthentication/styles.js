@@ -64,21 +64,6 @@ export const Form = styled.form`
     font-size: 1.2rem;
   }
 
-  input {
-    background-color: #141e27;
-    border: 1px solid #121213;
-    border-radius: 2px;
-    padding: 10px 8px;
-    margin: 8px 0;
-    height: 35px;
-    color: white;
-
-    :focus {
-      box-shadow: 0 0 5px #6ebc3b;
-      border: 1px solid #6ebc3b;
-    }
-  }
-
   button {
     background-color: #6ebc3b;
     border-radius: 2px;

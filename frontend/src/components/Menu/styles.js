@@ -16,7 +16,7 @@ export const Title = styled.h1`
   border-bottom: 1px solid rgba(0, 0, 0, 0.7);
   text-transform: uppercase;
   letter-spacing: 0.1rem;
-  padding: 12px;
+  padding: 12px 16px;
 `;
 
 export const MenuList = styled.ul`

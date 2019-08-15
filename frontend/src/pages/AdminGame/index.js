@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-import { MdFileUpload } from "react-icons/md";
-
 import { toast } from "react-toastify";
 
 import AdminTemplate from "../../components/AdminTemplate";
+import Input from "../../components/Input";
+import Upload from "../../components/Upload";
 
-import { Content, Upload, Button, Buttons } from "./styles";
+import { Content, Button, Buttons } from "./styles";
 
 import api from "../../services/api";
 
@@ -66,7 +66,7 @@ export default function AdminGame({ history, match }) {
         <form onSubmit={onSubmit}>
           <h2>Game</h2>
 
-          <input
+          <Input
             id="name"
             name="name"
             placeholder="Name"
@@ -74,20 +74,12 @@ export default function AdminGame({ history, match }) {
             onChange={e => setName(e.target.value)}
           />
 
-          <Upload>
-            <MdFileUpload size="125px" opacity="0.1" />
-            <span>{image}</span>
-            <input
-              id="image"
-              name="image"
-              placeholder="Image"
-              type="file"
-              accept="image/*"
-              onChange={e =>
-                e.target.files.length && setImage(e.target.files[0].name)
-              }
-            />
-          </Upload>
+          <Upload
+            onChange={e =>
+              e.target.files.length && setImage(e.target.files[0].name)
+            }
+            image={image}
+          />
 
           <Buttons>
             <Button type="submit" success>

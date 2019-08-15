@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { Container, Title, Form } from "./styles";
 
+import Input from '../../components/Input'
+
 import api from "../../services/api";
 
 export default function AdminAuthentication({ history }) {
@@ -41,7 +43,7 @@ export default function AdminAuthentication({ history }) {
       <Form onSubmit={onSubmit}>
         <span>Login</span>
 
-        <input
+        <Input
           id="email"
           name="email"
           type="email"
@@ -50,7 +52,7 @@ export default function AdminAuthentication({ history }) {
           value={email}
         />
 
-        <input
+        <Input
           id="password"
           type="password"
           placeholder="Password"
