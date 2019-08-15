@@ -6,12 +6,10 @@ A simple application inspired in website Compare Games.
 
 - [ ] Admin
   - [X] Authenticate Admin
-  - [ ] Register Store
   - [X] Register Game
+  - [ ] Register Store
   - [ ] Register Game Store
 
 - [ ] User
-  - [ ] Register User
-  - [ ] Authenticate User
-  - [ ] Detail Games
   - [ ] List Games
+  - [ ] Detail Games

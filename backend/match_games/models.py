@@ -25,3 +25,13 @@ class Game(db.Model):
     image = db.Column(db.String(250),
                       nullable=False,
                       default='default.jpg')
+
+
+class Store(db.Model):
+    id = db.Column(db.Integer,
+                   primary_key=True)
+    name = db.Column(db.String(250),
+                     nullable=False)
+    image = db.Column(db.String(250),
+                      nullable=False,
+                      default='default.jpg')
