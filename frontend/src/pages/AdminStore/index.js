@@ -50,7 +50,13 @@ export default function AdminStore({ match, history }) {
   function destroy(e) {
     e.preventDefault();
 
-    console.log("Destroy");
+    api
+      .delete(`/api/v1/stores/${match.params.id}`)
+      .then(() => {
+        history.push("/admin/stores");
+        toast.info("Operation successfully performed.");
+      })
+      .then(console.error);
   }
 
   return (

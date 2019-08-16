@@ -100,3 +100,17 @@ def update(id):
     db.session.commit()
 
     return {'data': None, 'errors': []}, 200
+
+
+@blueprint.route('/api/v1/stores/<int:id>', methods=['DELETE'])
+@transational()
+@json()
+def destroy(id):
+    store = Store.query.filter(Store.id == id).first()
+
+    if not store:
+        return {'data': None, 'errors': ['Game with this id not exists.']}, 404
+
+    db.session.delete(store)
+
+    return {'data': None, 'errors': []}, 200

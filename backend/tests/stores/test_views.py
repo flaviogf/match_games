@@ -155,3 +155,22 @@ class TestUpdate:
         db.session.add(store)
         db.session.commit()
         return store
+
+
+class TestDetroy:
+    def test_should_return_status_200_when_store_is_deleted(self, client, store):
+        response = client.delete(f'/api/v1/stores/{store.id}')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_404_when_store_not_exists(self, client):
+        response = client.delete('/api/v1/stores/1')
+
+        assert 404 == response.status_code
+
+    @pytest.fixture
+    def store(self, db):
+        store = Store(name='XPTO')
+        db.session.add(store)
+        db.session.commit()
+        return store
