@@ -14,7 +14,7 @@ import { Container } from "./styles";
 
 import api from "../../services/api";
 
-export default function AdminStores() {
+export default function AdminStores({ history }) {
   const [stores, setStores] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [hasPrevious, setHasPrevious] = useState(false);
@@ -67,7 +67,10 @@ export default function AdminStores() {
             </thead>
             <tbody>
               {stores.map(store => (
-                <tr key={store.id}>
+                <tr
+                  key={store.id}
+                  onClick={() => history.push(`/admin/stores/${store.id}`)}
+                >
                   <td>{store.id}</td>
                   <td>{store.name}</td>
                   <td>{store.image}</td>

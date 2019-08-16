@@ -9,7 +9,7 @@ class TestAuthentication:
 
         assert 200 == response.status_code
 
-    def test_should_return_status_401_when_user_not_is_authenticated(self, client):
+    def test_should_return_status_400_when_user_not_is_authenticated(self, client):
         data = {
             'email': 'flash@dc.com',
             'password': 'wrong'
@@ -17,7 +17,7 @@ class TestAuthentication:
 
         response = client.post('/api/v1/authentication', json=data)
 
-        assert 401 == response.status_code
+        assert 400 == response.status_code
 
     def test_should_return_status_400_when_email_is_empty(self, client):
         data = {

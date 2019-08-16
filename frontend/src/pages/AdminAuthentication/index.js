@@ -11,7 +11,7 @@ export default function AdminAuthentication({ history }) {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem("__token"));
+    const token = localStorage.getItem("__token");
     if (!token) return;
     history.push("/admin");
   }, [history]);

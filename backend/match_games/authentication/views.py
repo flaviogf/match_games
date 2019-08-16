@@ -42,7 +42,7 @@ def authentication():
 
         return {'data': data, 'errors': []}, 200
 
-    return {'data': None, 'errors': ['Email or password invalid']}, 401
+    return {'data': None, 'errors': ['Email or password invalid.']}, 400
 
 
 @blueprint.route('/api/v1/authentication/validate-token', methods=['POST'])

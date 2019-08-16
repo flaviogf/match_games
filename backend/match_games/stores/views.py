@@ -6,9 +6,9 @@ from flask import Blueprint, current_app, request
 from match_games import db, q
 from match_games.decorators import json, transational, validate
 from match_games.models import Store
+from match_games.pagination import create_pagination
 from match_games.stores.serializers import create_store_serializer
 from match_games.tasks import compress_image
-from match_games.pagination import create_pagination
 
 blueprint = Blueprint('stores', __name__)
 
@@ -35,6 +35,8 @@ def create():
 
 
 @blueprint.route('/api/v1/stores', methods=['GET'])
+@transational()
+@json()
 def all_():
     limit = 8
     page = request.args.get('page', 1, type=int)
@@ -54,3 +56,47 @@ def all_():
     pagination = create_pagination(page, Store.query.all())
 
     return {'data': stores, 'errors': []}, 200, pagination
+
+
+@blueprint.route('/api/v1/stores/<int:id>', methods=['GET'])
+@transational()
+@json()
+def single(id):
+    store = Store.query.filter(Store.id == id).first()
+
+    if not store:
+        return {'data': '', 'errors': ['Store with this id not exists.']}, 404
+
+    data = {
+        'id': store.id,
+        'name': store.name,
+        'image': store.image
+    }
+
+    return {'data': data, 'errors': []}, 200
+
+
+@blueprint.route('/api/v1/stores/<int:id>', methods=['PUT'])
+@validate(create_store_serializer)
+@transational()
+@json()
+def update(id):
+    files = request.files
+    body = request.form
+
+    store = Store.query.filter(Store.id == id).first()
+
+    if not store:
+        return {'data': None, 'errors': ['Game with this id not exists']}, 404
+
+    store.name = body.get('name')
+
+    if files:
+        store.image = f'{secrets.token_hex(8)}.jpg'
+        image_path = join(current_app.config.get('UPLOAD_DIR'), store.image)
+        files.get('image').save(image_path)
+        q.enqueue(compress_image, image_path)
+
+    db.session.commit()
+
+    return {'data': None, 'errors': []}, 200

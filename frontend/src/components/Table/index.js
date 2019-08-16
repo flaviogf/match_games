@@ -41,7 +41,7 @@ export default styled.table`
     td {
       border: 1px solid #121213;
       white-space: nowrap;
-      overflow-x: scroll;
+      overflow-x: auto;
       padding: 8px;
 
       @media (min-width: 768px) {

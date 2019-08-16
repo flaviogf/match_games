@@ -67,3 +67,91 @@ class TestAll:
             db.session.add(store)
 
         db.session.commit()
+
+
+class TestSingle:
+    def test_should_return_status_200_when_store_exist(self, client, store):
+        response = client.get(f'/api/v1/stores/{store.id}')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_404_when_store_not_exists(self, client):
+        response = client.get('/api/v1/stores/1')
+
+        assert 404 == response.status_code
+
+    def test_should_return_the_store_when_it_exists(self, client, store):
+        response = client.get(f'/api/v1/stores/{store.id}')
+
+        expected = {
+            'id': 1,
+            'name': 'Store',
+            'image': 'default.jpg'
+        }
+
+        result = response.json['data']
+
+        assert expected == result
+
+    @pytest.fixture
+    def store(self, db):
+        store = Store(name='Store')
+        db.session.add(store)
+        db.session.commit()
+        return store
+
+
+class TestUpdate:
+    def test_should_return_status_200_when_update_the_store(self, client, image, store):
+        data = {
+            'name': 'test',
+            'image': image
+        }
+
+        response = client.put(f'/api/v1/stores/{store.id}',
+                              data=data,
+                              content_type='multipart/form-data')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_200_when_image_not_is_informed(self, client, store):
+        data = {
+            'name': 'Test'
+        }
+
+        response = client.put(f'/api/v1/stores/{store.id}',
+                              data=data,
+                              content_type='multipart/form-data')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_400_when_name_not_is_informed(self, client, image, store):
+        data = {
+            'name': '',
+            'image': image
+        }
+
+        response = client.put(f'/api/v1/stores/{store.id}',
+                              data=data,
+                              content_type='multipart/form-data')
+
+        assert 400 == response.status_code
+
+    def test_should_return_status_404_when_store_not_exists(self, client, image):
+        data = {
+            'name': 'test',
+            'image': image
+        }
+
+        response = client.put('/api/v1/stores/1',
+                              data=data,
+                              content_type='multipart/form-data')
+
+        assert 404 == response.status_code
+
+    @pytest.fixture
+    def store(self, db):
+        store = Store(name='Store')
+        db.session.add(store)
+        db.session.commit()
+        return store
