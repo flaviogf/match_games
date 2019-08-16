@@ -1,3 +1,6 @@
+from math import ceil
+
+
 def count_items(items):
     return {'count': len(items)}
 
@@ -6,7 +9,7 @@ def count_pages(limit):
     def inner(pagination):
         new_pagination = pagination.copy()
         count = new_pagination['count']
-        new_pagination['pages'] = round(count / limit)
+        new_pagination['pages'] = ceil(count / limit)
         return new_pagination
     return inner
 

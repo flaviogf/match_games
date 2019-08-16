@@ -8,6 +8,7 @@ import AdminTemplate from "../../components/AdminTemplate";
 
 import Card, { CardHeader } from "../../components/Card";
 import Table from "../../components/Table";
+import Paginator from "../../components/Paginator";
 
 import { Container } from "./styles";
 
@@ -48,6 +49,14 @@ export default function AdminStores() {
             </Link>
           </CardHeader>
 
+          <Paginator
+            hasPrevious={hasPrevious}
+            onClickPrevious={() => setCurrentPage(currentPage - 1)}
+            hasNext={hasNext}
+            onClickNext={() => setCurrentPage(currentPage + 1)}
+            currentPage={currentPage}
+          />
+
           <Table>
             <thead>
               <tr>
@@ -66,10 +75,6 @@ export default function AdminStores() {
               ))}
             </tbody>
           </Table>
-
-          {hasPrevious && <span>Previous</span>}
-          <span>{currentPage}</span>
-          {hasNext && <span>Next</span>}
         </Card>
       </Container>
     </AdminTemplate>
