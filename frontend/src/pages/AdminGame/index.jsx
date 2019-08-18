@@ -17,7 +17,6 @@ export default function AdminGame({ history, match }) {
   useEffect(() => {
     function loadGame() {
       if (!match.params.id) return;
-
       api
         .get(`/api/v1/games/${match.params.id}`)
         .then((res) => res.data.data)

@@ -44,7 +44,7 @@ function PrivateRoute({ component: Component, ...rest }) {
   useEffect(() => {
     const headers = { Authorization: localStorage.getItem('__token') };
     api.post('/api/v1/authentication/validate-token', {}, { headers });
-  }, []);
+  });
 
   return <Route {...rest} render={(props) => <Component {...props} />} />;
 }

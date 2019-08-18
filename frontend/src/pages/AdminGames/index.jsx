@@ -6,7 +6,7 @@ import { MdAdd } from 'react-icons/md';
 
 import AdminTemplate from '../../components/AdminTemplate';
 import Table from '../../components/Table';
-import Card, { CardHeader } from '../../components/Card';
+import { Card, CardHeader } from '../../components/Card';
 import Paginator from '../../components/Paginator';
 
 import { Content } from './styles';
@@ -24,17 +24,17 @@ export default function AdminGames({ history }) {
       api
         .get(`/api/v1/games?page=${currentPage}`)
         .then((res) => {
-          setHasPrevious(res.headers['has_previous'] === 'True');
-          setHasNext(res.headers['has_next'] === 'True');
+          setHasPrevious(res.headers.has_previous === 'True');
+          setHasNext(res.headers.has_next === 'True');
           return res;
         })
-        .then((res) => res.data)
-        .then((body) => setGames(body.data))
+        .then((res) => res.data.data)
+        .then(setGames)
         .catch(console.error);
     }
 
     listGames();
-  }, [currentPage, hasPrevious, hasNext]);
+  }, [currentPage]);
 
   return (
     <AdminTemplate>

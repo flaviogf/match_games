@@ -26,7 +26,7 @@ export default function AdminDashboard() {
     }
 
     loadStats();
-  }, [games, stores, users]);
+  }, []);
 
   return (
     <AdminTemplate>

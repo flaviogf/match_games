@@ -14,7 +14,7 @@ export default function AdminAuthentication({ history }) {
     const token = localStorage.getItem('__token');
     if (!token) return;
     history.push('/admin');
-  }, [history]);
+  }, []);
 
   function onSubmit(e) {
     e.preventDefault();

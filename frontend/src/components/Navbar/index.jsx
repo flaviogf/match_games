@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import { withRouter, Link } from 'react-router-dom';
 
-import { MdArrowDropDown, MdPerson, MdExitToApp } from 'react-icons/md';
+import { MdArrowDropDown, MdExitToApp, MdWeb } from 'react-icons/md';
 
 import { Container, Avatar, Menu, MenuItem } from './styles';
 
@@ -14,7 +14,7 @@ function Navbar({ history }) {
     const user = JSON.parse(localStorage.getItem('__user'));
     if (!user) return;
     setUsername(user.name[0].toUpperCase());
-  }, [username]);
+  }, []);
 
   function logout() {
     localStorage.clear();
@@ -33,10 +33,12 @@ function Navbar({ history }) {
       </Avatar>
 
       <Menu visible={visible}>
-        <MenuItem>
-          <MdPerson />
-          <span>Account</span>
-        </MenuItem>
+        <Link to="/">
+          <MenuItem>
+            <MdWeb />
+            <span>Website</span>
+          </MenuItem>
+        </Link>
 
         <MenuItem onClick={logout}>
           <MdExitToApp />

@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   flex-direction: column;
-  grid: content;
-  display: flex;
+  grid-area: content;
   padding: 16px;
+  display: flex;
 
   @media (min-width: 768px) {
     flex-direction: row;
@@ -20,7 +20,7 @@ export const Stats = styled.div`
   height: 125px;
   color: white;
   flex-grow: 1;
-  margin: 8px;
+  margin: 0 8px 8px 8px;
 
   h3 {
     text-transform: uppercase;
@@ -36,5 +36,15 @@ export const Stats = styled.div`
     position: absolute;
     bottom: 0;
     width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    &:first-child {
+      margin-left: 0px;
+    }
+
+    &:last-child {
+      margin-right: 0px;
+    }
   }
 `;

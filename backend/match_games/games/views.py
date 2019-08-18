@@ -43,7 +43,7 @@ def all_():
     offset = page * limit - limit
 
     games = (Game.query
-             .order_by(Game.name)
+             .order_by(Game.name, Game.id)
              .limit(limit)
              .offset(offset)
              .all())

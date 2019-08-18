@@ -6,7 +6,7 @@ import { MdAdd } from 'react-icons/md';
 
 import AdminTemplate from '../../components/AdminTemplate';
 
-import Card, { CardHeader } from '../../components/Card';
+import { Card, CardHeader } from '../../components/Card';
 import Table from '../../components/Table';
 import Paginator from '../../components/Paginator';
 
@@ -25,17 +25,17 @@ export default function AdminStores({ history }) {
       api
         .get(`/api/v1/stores?page=${currentPage}`)
         .then((res) => {
-          setHasPrevious(res.headers['has_previous'] === 'True');
-          setHasNext(res.headers['has_next'] === 'True');
+          setHasPrevious(res.headers.has_previous === 'True');
+          setHasNext(res.headers.has_next === 'True');
           return res;
         })
         .then((res) => res.data.data)
         .then(setStores)
-        .catch(console.log);
+        .catch(console.error);
     }
 
     loadStores();
-  }, [currentPage, hasPrevious, hasNext]);
+  }, [currentPage]);
 
   return (
     <AdminTemplate>

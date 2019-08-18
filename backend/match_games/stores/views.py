@@ -43,7 +43,7 @@ def all_():
     offset = page * limit - limit
 
     stores = (Store.query
-              .order_by(Store.name)
+              .order_by(Store.name, Store.id)
               .limit(limit)
               .offset(offset)
               .all())
