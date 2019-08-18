@@ -33,14 +33,12 @@ export default function Games() {
         <GameCard key={game.id}>
           <img src={game.image_path} alt="Game cover." />
           <h2>{game.name}</h2>
-          <span>Por:</span>
-          <span>
-            <small>R$</small>
-            199,99
-          </span>
         </GameCard>
       ))}
-      <Loader onHit={() => hasNext && setCurrentPage(currentPage + 1)} />
+      <Loader
+        onHit={() => hasNext && setCurrentPage(currentPage + 1)}
+        visible={hasNext}
+      />
     </Container>
   );
 }

@@ -125,6 +125,7 @@ dmypy.json
 
 # uploads
 /match_games/static/uploads/*.jpg
+!/match_games/static/uploads/default.jpg
 
 # vscode
 .vscode

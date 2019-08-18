@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { Container } from './styles';
+import { Container, Content } from './styles';
 
-export default function Loader({ onHit }) {
+export default function Loader({ visible, onHit }) {
   const [hit, setHit] = useState(false);
   const containerRef = useRef(null);
 
@@ -22,7 +22,7 @@ export default function Loader({ onHit }) {
 
   return (
     <Container>
-      <h1 ref={containerRef}>Loader</h1>
+      <Content ref={containerRef} visible={visible} />
     </Container>
   );
 }
