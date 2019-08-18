@@ -17,7 +17,6 @@ def count_pages(limit):
 def verify_has_previous(current_page):
     def inner(pagination):
         new_pagination = pagination.copy()
-        pages = new_pagination['pages']
         new_pagination['has_previous'] = current_page - 1 != 0
         return new_pagination
     return inner

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.nav`
   grid-area: navbar;
@@ -10,14 +10,14 @@ export const Container = styled.nav`
   display: flex;
   color: white;
   z-index: 20;
-  
+
   a {
     text-decoration: none;
     color: inherit;
   }
 
   h1 {
-    font-family: "Oswald", sans-serif;
+    font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     font-size: 1.5rem;
   }
@@ -43,9 +43,9 @@ export const Avatar = styled.div`
 `;
 
 export const Menu = styled.ul`
-  transform: ${props =>
-    props.visible ? "translateY(0px);" : "translateY(-30px);"};
-  opacity: ${props => (props.visible ? "1" : "0")};
+  transform: ${(props) =>
+    props.visible ? 'translateY(0px);' : 'translateY(-30px);'};
+  opacity: ${(props) => (props.visible ? '1' : '0')};
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background-color: #6ebc3b;
   transition: all 0.2s;

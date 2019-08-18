@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { MdAdd } from "react-icons/md";
+import { MdAdd } from 'react-icons/md';
 
-import AdminTemplate from "../../components/AdminTemplate";
-import Table from "../../components/Table";
-import Card, { CardHeader } from "../../components/Card";
-import Paginator from "../../components/Paginator";
+import AdminTemplate from '../../components/AdminTemplate';
+import Table from '../../components/Table';
+import Card, { CardHeader } from '../../components/Card';
+import Paginator from '../../components/Paginator';
 
-import { Content } from "./styles";
+import { Content } from './styles';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
 export default function AdminGames({ history }) {
   const [games, setGames] = useState([]);
@@ -23,13 +23,13 @@ export default function AdminGames({ history }) {
     function listGames() {
       api
         .get(`/api/v1/games?page=${currentPage}`)
-        .then(res => {
-          setHasPrevious(res.headers["has_previous"] === "True");
-          setHasNext(res.headers["has_next"] === "True");
+        .then((res) => {
+          setHasPrevious(res.headers['has_previous'] === 'True');
+          setHasNext(res.headers['has_next'] === 'True');
           return res;
         })
-        .then(res => res.data)
-        .then(body => setGames(body.data))
+        .then((res) => res.data)
+        .then((body) => setGames(body.data))
         .catch(console.error);
     }
 
@@ -65,7 +65,7 @@ export default function AdminGames({ history }) {
               </tr>
             </thead>
             <tbody>
-              {games.map(game => (
+              {games.map((game) => (
                 <tr
                   key={game.id}
                   onClick={() => history.push(`/admin/games/${game.id}`)}

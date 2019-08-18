@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Content = styled.section`
   grid-area: content;
@@ -40,7 +40,7 @@ export const Button = styled.button`
     margin-right: 0px;
   }
 
-  ${props =>
+  ${(props) =>
     props.success &&
     css`
       background-color: #6ebc3b;
@@ -54,7 +54,7 @@ export const Button = styled.button`
       }
     `}
 
-  ${props =>
+  ${(props) =>
     props.danger &&
     css`
       background-color: #ef5350;

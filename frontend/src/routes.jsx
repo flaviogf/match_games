@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect
-} from "react-router-dom";
+} from 'react-router-dom';
 
-import Games from "./pages/Games";
-import AdminDashboard from "./pages/AdminDashboard";
-import AdminAuthentication from "./pages/AdminAuthentication";
-import AdminGames from "./pages/AdminGames";
-import AdminGame from "./pages/AdminGame";
-import AdminStores from "./pages/AdminStores";
-import AdminStore from "./pages/AdminStore";
+import Games from './pages/Games';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminAuthentication from './pages/AdminAuthentication';
+import AdminGames from './pages/AdminGames';
+import AdminGame from './pages/AdminGame';
+import AdminStores from './pages/AdminStores';
+import AdminStore from './pages/AdminStore';
 
-import api from "./services/api";
+import api from './services/api';
 
 export default function Routes() {
   return (
@@ -42,9 +42,9 @@ export default function Routes() {
 
 function PrivateRoute({ component: Component, ...rest }) {
   useEffect(() => {
-    const headers = { Authorization: localStorage.getItem("__token") };
-    api.post("/api/v1/authentication/validate-token", {}, { headers });
+    const headers = { Authorization: localStorage.getItem('__token') };
+    api.post('/api/v1/authentication/validate-token', {}, { headers });
   }, []);
 
-  return <Route {...rest} render={props => <Component {...props} />} />;
+  return <Route {...rest} render={(props) => <Component {...props} />} />;
 }

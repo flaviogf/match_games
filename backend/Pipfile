@@ -6,9 +6,9 @@ verify_ssl = true
 [dev-packages]
 pytest = "*"
 coverage = "*"
-autopep8 = "*"
 rope = "*"
-pylint = "*"
+pylama = "*"
+autopep8 = "*"
 
 [packages]
 flask = "==1.1.1"

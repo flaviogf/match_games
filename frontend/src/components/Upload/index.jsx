@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { MdFileUpload } from "react-icons/md";
+import { MdFileUpload } from 'react-icons/md';
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
 export default function Upload({ image, onChange }) {
   return (

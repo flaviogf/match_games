@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   flex-direction: column;
@@ -12,7 +12,7 @@ export const Container = styled.div`
 `;
 
 export const Stats = styled.div`
-  background-image: ${props => props.color};
+  background-image: ${(props) => props.color};
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;

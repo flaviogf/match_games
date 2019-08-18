@@ -1,7 +1,7 @@
 import re
 
 import jwt
-from flask import Blueprint, current_app, jsonify, request
+from flask import Blueprint, current_app, request
 
 from match_games import bcrypt
 from match_games.authentication.serializers import authentication_serializer

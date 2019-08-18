@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Navbar from "../Navbar";
-import Menu from "../Menu";
-import Footer from "../Footer";
+import Navbar from '../Navbar';
+import Menu from '../Menu';
+import Footer from '../Footer';
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
 export default function AdminTemplate(props) {
   return (

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Card = styled.div`
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);

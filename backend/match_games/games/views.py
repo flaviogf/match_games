@@ -1,7 +1,7 @@
 import secrets
 from os.path import join
 
-from flask import Blueprint, current_app, request
+from flask import Blueprint, current_app, request, url_for
 
 from match_games import db, q
 from match_games.decorators import json, transational, validate
@@ -52,7 +52,8 @@ def all_():
 
     data = [dict(id=game.id,
                  name=game.name,
-                 image=game.image) for game in games]
+                 image=game.image,
+                 image_path=url_for('static', filename=f'uploads/{game.image}', _external=True)) for game in games]
 
     return {'data': data, 'errors': []}, 200, pagination
 
@@ -69,7 +70,8 @@ def single(id):
     data = {
         'id': game.id,
         'name': game.name,
-        'image': game.image
+        'image': game.image,
+        'image_path': url_for('static', filename=f'uploads/{game.image}', _external=True)
     }
 
     return {'data': data, 'errors': []}, 200

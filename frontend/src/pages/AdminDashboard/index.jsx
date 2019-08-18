@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import AdminTemplate from "../../components/AdminTemplate";
+import AdminTemplate from '../../components/AdminTemplate';
 
-import { Container, Stats } from "./styles";
+import { Container, Stats } from './styles';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
-const wave = require("../../assets/wave.svg");
+const wave = require('../../assets/wave.svg');
 
 export default function AdminDashboard() {
   const [games, setGames] = useState(0);
@@ -16,9 +16,9 @@ export default function AdminDashboard() {
   useEffect(() => {
     function loadStats() {
       api
-        .get("/api/v1/stats")
-        .then(res => res.data.data)
-        .then(stats => {
+        .get('/api/v1/stats')
+        .then((res) => res.data.data)
+        .then((stats) => {
           setGames(stats.games);
           setStores(stats.stores);
           setUsers(stats.users);

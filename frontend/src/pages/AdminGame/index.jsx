@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 
-import AdminTemplate from "../../components/AdminTemplate";
-import Input from "../../components/Input";
-import Upload from "../../components/Upload";
+import AdminTemplate from '../../components/AdminTemplate';
+import Input from '../../components/Input';
+import Upload from '../../components/Upload';
 
-import { Content, Button, Buttons } from "./styles";
+import { Content, Button, Buttons } from './styles';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
 export default function AdminGame({ history, match }) {
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("Select a image.");
+  const [name, setName] = useState('');
+  const [image, setImage] = useState('Select a image.');
 
   useEffect(() => {
     function loadGame() {
@@ -20,8 +20,8 @@ export default function AdminGame({ history, match }) {
 
       api
         .get(`/api/v1/games/${match.params.id}`)
-        .then(res => res.data.data)
-        .then(data => {
+        .then((res) => res.data.data)
+        .then((data) => {
           setName(data.name);
           setImage(data.image);
         })
@@ -36,16 +36,16 @@ export default function AdminGame({ history, match }) {
 
     const form = new FormData();
 
-    form.append("name", name);
-    form.append("image", e.target.image.files[0]);
+    form.append('name', name);
+    form.append('image', e.target.image.files[0]);
 
-    const method = match.params.id ? "put" : "post";
-    const id = match.params.id ? `/${match.params.id}` : "";
+    const method = match.params.id ? 'put' : 'post';
+    const id = match.params.id ? `/${match.params.id}` : '';
 
     api[method](`/api/v1/games${id}`, form)
       .then(() => {
-        toast.success("Operation successfully performed.");
-        history.push("/admin/games");
+        toast.success('Operation successfully performed.');
+        history.push('/admin/games');
       })
       .catch(console.error);
   }
@@ -54,8 +54,8 @@ export default function AdminGame({ history, match }) {
     api
       .delete(`/api/v1/games/${match.params.id}`)
       .then(() => {
-        toast.success("Operation successfully performed.");
-        history.push("/admin/games");
+        toast.success('Operation successfully performed.');
+        history.push('/admin/games');
       })
       .catch(console.error);
   }
@@ -71,11 +71,11 @@ export default function AdminGame({ history, match }) {
             name="name"
             placeholder="Name"
             value={name}
-            onChange={e => setName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
 
           <Upload
-            onChange={e =>
+            onChange={(e) =>
               e.target.files.length && setImage(e.target.files[0].name)
             }
             image={image}

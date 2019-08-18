@@ -1,9 +1,10 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
     @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap');
     @import url('https://fonts.googleapis.com/css?family=Oswald:400,700&display=swap');
-    
+    @import url('https://fonts.googleapis.com/css?family=Roboto:100,400,500&display=swap');
+
     * {
         box-sizing: border-box;
         outline: none;
@@ -12,7 +13,7 @@ export default createGlobalStyle`
     html,
     body,
     #root {
-        height: 100vh;
+        height: 100%;
     }
 
     body {

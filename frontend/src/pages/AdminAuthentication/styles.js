@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import background from "../../assets/background.jpg";
+import background from '../../assets/background.jpg';
 
 export const Container = styled.main`
   justify-content: center;
@@ -15,7 +15,7 @@ export const Container = styled.main`
     background-size: cover;
     position: absolute;
     opacity: 0.1;
-    content: "";
+    content: '';
     z-index: -1;
     bottom: 0;
     right: 0;

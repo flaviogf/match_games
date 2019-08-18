@@ -1,24 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { withRouter, Link } from "react-router-dom";
+import { withRouter, Link } from 'react-router-dom';
 
-import { MdArrowDropDown, MdPerson, MdExitToApp } from "react-icons/md";
+import { MdArrowDropDown, MdPerson, MdExitToApp } from 'react-icons/md';
 
-import { Container, Avatar, Menu, MenuItem } from "./styles";
+import { Container, Avatar, Menu, MenuItem } from './styles';
 
 function Navbar({ history }) {
   const [visible, setvisible] = useState(false);
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("__user"));
+    const user = JSON.parse(localStorage.getItem('__user'));
     if (!user) return;
     setUsername(user.name[0].toUpperCase());
   }, [username]);
 
   function logout() {
     localStorage.clear();
-    history.push("/admin/authentication");
+    history.push('/admin/authentication');
   }
 
   return (

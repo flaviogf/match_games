@@ -1,7 +1,7 @@
 from flask import Blueprint
 
-from match_games.decorators import transational, json
-from match_games.models import Store, Game, User
+from match_games.decorators import json, transational
+from match_games.models import Game, Store, User
 
 blueprint = Blueprint('stats', __name__)
 

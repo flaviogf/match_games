@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.aside`
   background-color: #243447;
@@ -27,7 +27,7 @@ export const MenuList = styled.ul`
 
 export const MenuItem = styled.li`
   cursor: pointer;
-  color: ${props => (props.active ? "#6ebc3b" : "inherit")};
+  color: ${(props) => (props.active ? '#6ebc3b' : 'inherit')};
 
   a {
     padding: 12px 16px;

@@ -1,15 +1,15 @@
 # Match games
 
-A simple application inspired in website Compare Games.
+A simple application to manage games.
 
 ## Features
 
 - [ ] Admin
   - [X] Authenticate Admin
   - [X] Register Game
-  - [ ] Register Store
+  - [X] Register Store
   - [ ] Register Game Store
 
 - [ ] User
-  - [ ] List Games
+  - [X] List Games
   - [ ] Detail Games

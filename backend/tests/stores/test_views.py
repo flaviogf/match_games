@@ -86,7 +86,8 @@ class TestSingle:
         expected = {
             'id': 1,
             'name': 'Store',
-            'image': 'default.jpg'
+            'image': 'default.jpg',
+            'image_path': 'http://localhost/static/uploads/default.jpg'
         }
 
         result = response.json['data']

@@ -1,34 +1,34 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { Container, Title, Form } from "./styles";
+import { Container, Title, Form } from './styles';
 
-import Input from "../../components/Input";
+import Input from '../../components/Input';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
 export default function AdminAuthentication({ history }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
-    const token = localStorage.getItem("__token");
+    const token = localStorage.getItem('__token');
     if (!token) return;
-    history.push("/admin");
+    history.push('/admin');
   }, [history]);
 
   function onSubmit(e) {
     e.preventDefault();
 
     api
-      .post("/api/v1/authentication", {
+      .post('/api/v1/authentication', {
         email,
         password
       })
-      .then(res => res.data.data)
-      .then(data => {
-        localStorage.setItem("__user", JSON.stringify(data));
-        localStorage.setItem("__token", `Bearer ${data.token}`);
-        history.push("/admin");
+      .then((res) => res.data.data)
+      .then((data) => {
+        localStorage.setItem('__user', JSON.stringify(data));
+        localStorage.setItem('__token', `Bearer ${data.token}`);
+        history.push('/admin');
       })
       .catch(console.error);
   }
@@ -48,7 +48,7 @@ export default function AdminAuthentication({ history }) {
           name="email"
           type="email"
           placeholder="E-mail"
-          onChange={e => setEmail(e.target.value)}
+          onChange={(e) => setEmail(e.target.value)}
           value={email}
         />
 
@@ -56,7 +56,7 @@ export default function AdminAuthentication({ history }) {
           id="password"
           type="password"
           placeholder="Password"
-          onChange={e => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
 

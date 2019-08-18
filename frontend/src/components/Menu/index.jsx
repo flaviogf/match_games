@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { Container, Title, MenuList, MenuItem, Footer } from "./styles";
+import { Container, Title, MenuList, MenuItem, Footer } from './styles';
 
 export default function Menu() {
   return (

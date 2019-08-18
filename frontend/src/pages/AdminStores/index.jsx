@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
-import { MdAdd } from "react-icons/md";
+import { MdAdd } from 'react-icons/md';
 
-import AdminTemplate from "../../components/AdminTemplate";
+import AdminTemplate from '../../components/AdminTemplate';
 
-import Card, { CardHeader } from "../../components/Card";
-import Table from "../../components/Table";
-import Paginator from "../../components/Paginator";
+import Card, { CardHeader } from '../../components/Card';
+import Table from '../../components/Table';
+import Paginator from '../../components/Paginator';
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
-import api from "../../services/api";
+import api from '../../services/api';
 
 export default function AdminStores({ history }) {
   const [stores, setStores] = useState([]);
@@ -24,12 +24,12 @@ export default function AdminStores({ history }) {
     function loadStores() {
       api
         .get(`/api/v1/stores?page=${currentPage}`)
-        .then(res => {
-          setHasPrevious(res.headers["has_previous"] === "True");
-          setHasNext(res.headers["has_next"] === "True");
+        .then((res) => {
+          setHasPrevious(res.headers['has_previous'] === 'True');
+          setHasNext(res.headers['has_next'] === 'True');
           return res;
         })
-        .then(res => res.data.data)
+        .then((res) => res.data.data)
         .then(setStores)
         .catch(console.log);
     }
@@ -66,7 +66,7 @@ export default function AdminStores({ history }) {
               </tr>
             </thead>
             <tbody>
-              {stores.map(store => (
+              {stores.map((store) => (
                 <tr
                   key={store.id}
                   onClick={() => history.push(`/admin/stores/${store.id}`)}

@@ -98,7 +98,8 @@ class TestSingle:
         expected = {
             'id': 1,
             'name': "Pokemon Let's Go Pikachu",
-            'image': 'default.jpg'
+            'image': 'default.jpg',
+            'image_path': 'http://localhost/static/uploads/default.jpg'
         }
 
         assert expected == game
@@ -177,7 +178,7 @@ class TestDestroy:
         assert 404 == response.status_code
 
     def test_should_update_database_when_destroy_the_game(self, client, game):
-        response = client.delete(f'/api/v1/games/{game.id}')
+        client.delete(f'/api/v1/games/{game.id}')
 
         assert 0 == Game.query.count()
 
