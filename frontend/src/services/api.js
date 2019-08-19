@@ -3,7 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000'
+  baseURL: 'https://backend.matchgames.flaviogf.com.br'
 });
 
 const onSuccess = (res) => {

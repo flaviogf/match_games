@@ -18,7 +18,7 @@ import api from './services/api';
 
 export default function Routes() {
   return (
-    <Router basename="/match-games">
+    <Router>
       <Switch>
         <Route path="/" exact component={Games} />
 
