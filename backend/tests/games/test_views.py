@@ -99,7 +99,8 @@ class TestSingle:
             'id': 1,
             'name': "Pokemon Let's Go Pikachu",
             'image': 'default.jpg',
-            'image_path': 'http://localhost/static/uploads/default.jpg'
+            'image_path': 'http://localhost/static/uploads/default.jpg',
+            'stores': []
         }
 
         assert expected == game

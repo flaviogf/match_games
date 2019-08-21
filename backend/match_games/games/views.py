@@ -71,7 +71,9 @@ def single(id):
         'id': game.id,
         'name': game.name,
         'image': game.image,
-        'image_path': url_for('static', filename=f'uploads/{game.image}', _external=True)
+        'image_path': url_for('static', filename=f'uploads/{game.image}', _external=True),
+        'stores': [dict(name=game_store.store.name,
+                        value=game_store.value) for game_store in game.stores]
     }
 
     return {'data': data, 'errors': []}, 200

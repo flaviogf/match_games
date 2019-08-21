@@ -1,4 +1,5 @@
 from match_games import db
+from sqlalchemy.orm import relationship
 
 
 class User(db.Model):
@@ -25,6 +26,7 @@ class Game(db.Model):
     image = db.Column(db.String(250),
                       nullable=False,
                       default='default.jpg')
+    stores = relationship('GameStore', back_populates='game')
 
 
 class Store(db.Model):
@@ -35,6 +37,7 @@ class Store(db.Model):
     image = db.Column(db.String(250),
                       nullable=False,
                       default='default.jpg')
+    games = relationship('GameStore', back_populates='store')
 
 
 class GameStore(db.Model):
@@ -46,3 +49,5 @@ class GameStore(db.Model):
                          primary_key=True)
     value = db.Column(db.Float,
                       nullable=False)
+    store = relationship('Store', back_populates='games')
+    game = relationship('Game', back_populates='stores')
