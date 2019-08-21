@@ -2,8 +2,14 @@ import axios from 'axios';
 
 import { toast } from 'react-toastify';
 
+const env = 'development';
+
+const production = 'https://backend.matchgames.flaviogf.com.br';
+
+const development = 'http://localhost:5000';
+
 const api = axios.create({
-  baseURL: 'https://backend.matchgames.flaviogf.com.br'
+  baseURL: env === 'production' ? production : development
 });
 
 const onSuccess = (res) => {
