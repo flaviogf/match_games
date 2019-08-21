@@ -35,3 +35,14 @@ class Store(db.Model):
     image = db.Column(db.String(250),
                       nullable=False,
                       default='default.jpg')
+
+
+class GameStore(db.Model):
+    game_id = db.Column(db.Integer,
+                        db.ForeignKey('game.id'),
+                        primary_key=True)
+    store_id = db.Column(db.Integer,
+                         db.ForeignKey('store.id'),
+                         primary_key=True)
+    value = db.Column(db.Float,
+                      nullable=False)
