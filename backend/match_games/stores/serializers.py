@@ -1,4 +1,4 @@
-from marshmallow import fields, validate
+from marshmallow import EXCLUDE, fields, validate
 
 from match_games import ma
 
@@ -8,4 +8,4 @@ class CreateStoreSerializer(ma.Schema):
                          validate=[validate.Length(min=3, error='Name must be {min} characters.')])
 
 
-create_store_serializer = CreateStoreSerializer()
+create_store_serializer = CreateStoreSerializer(unknown=EXCLUDE)
