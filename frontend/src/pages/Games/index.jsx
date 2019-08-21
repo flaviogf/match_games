@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { Container, GameCard } from './styles';
-
-import Loader from '../../components/Loader';
-
 import api from '../../services/api';
 
 export default function Games() {
@@ -28,17 +24,13 @@ export default function Games() {
   }, [currentPage]);
 
   return (
-    <Container>
+    <>
       {games.map((game) => (
-        <GameCard key={game.id}>
+        <span key={game.id}>
           <img src={game.image_path} alt="Game cover." />
           <h2>{game.name}</h2>
-        </GameCard>
+        </span>
       ))}
-      <Loader
-        onHit={() => hasNext && setCurrentPage(currentPage + 1)}
-        visible={hasNext}
-      />
-    </Container>
+    </>
   );
 }
