@@ -21,6 +21,10 @@ export default function Menu() {
         <MenuItem>
           <Link to="/admin/stores">Stores</Link>
         </MenuItem>
+
+        <MenuItem>
+          <Link to="/admin/game-store">Game &gt; Store</Link>
+        </MenuItem>
       </MenuList>
 
       <Footer />
