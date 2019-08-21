@@ -94,9 +94,11 @@ def update(id):
     store.name = body.get('name')
 
     if files:
-        store.image = f'{secrets.token_hex(8)}.jpg'
+        image = files.get('image')
+        _, extension = image.filename.split('.')
+        store.image = f'{secrets.token_hex(8)}.{extension}'
         image_path = join(current_app.config.get('UPLOAD_DIR'), store.image)
-        files.get('image').save(image_path)
+        image.save(image_path)
         q.enqueue(compress_image, image_path)
 
     db.session.commit()
