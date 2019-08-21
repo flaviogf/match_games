@@ -30,6 +30,8 @@ def create_app(config):
     app.register_blueprint(stores.views.blueprint)
     from match_games import stats
     app.register_blueprint(stats.views.blueprint)
+    from match_games import game_store
+    app.register_blueprint(game_store.views.blueprint)
 
     from match_games import commands
     app.cli.add_command(commands.create_admin)
