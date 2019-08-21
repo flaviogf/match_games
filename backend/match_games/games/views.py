@@ -24,9 +24,11 @@ def create():
     game = Game(name=body.get('name'))
 
     if files:
-        game.image = f'{secrets.token_hex(8)}.jpg'
+        image = files.get('image')
+        _, extension = image.filename.split('.')
+        game.image = f'{secrets.token_hex(8)}.{extension}'
         image_path = join(current_app.config.get('UPLOAD_DIR'), game.image)
-        files.get('image').save(image_path)
+        image.save(image_path)
         q.enqueue(compress_image, image_path)
 
     db.session.add(game)
