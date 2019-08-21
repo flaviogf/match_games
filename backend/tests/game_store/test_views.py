@@ -67,10 +67,36 @@ class TestCreate:
 
         assert 400 == response.status_code
 
-    @pytest.fixture
-    def game(self):
-        return Game(name='Fifa 19', image='default.jpg')
 
-    @pytest.fixture
-    def store(self):
-        return Store(name='Big Boy', image='default.jpg')
+class TestAll:
+    def test_should_return_status_200(self, client, db, game):
+        for _ in range(20):
+            db.session.add(game)
+
+        db.session.commit()
+
+        response = client.get('/api/v1/game-store')
+
+        assert 200 == response.status_code
+
+    def test_should_return_list_of_game_store(self, client, db, game):
+        for _ in range(20):
+            db.session.add(game)
+
+        db.session.commit()
+
+        response = client.get('/api/v1/game-store')
+
+        list_game_store = response.json['data']
+
+        assert isinstance(list_game_store, list)
+
+
+@pytest.fixture
+def game():
+    return Game(name='Fifa 19', image='default.jpg')
+
+
+@pytest.fixture
+def store():
+    return Store(name='Big Boy', image='default.jpg')
