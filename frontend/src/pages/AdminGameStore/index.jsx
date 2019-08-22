@@ -62,6 +62,8 @@ export default function AdminGameStore({ history }) {
           />
 
           <Select onChange={(e) => setGame(e.target.value)}>
+            <option>Select a game</option>
+
             {games.map((it) => (
               <option key={it.id} value={it.id}>
                 {it.name}
@@ -70,6 +72,8 @@ export default function AdminGameStore({ history }) {
           </Select>
 
           <Select onChange={(e) => setStore(e.target.value)}>
+            <option>Select a store</option>
+
             {stores.map((it) => (
               <option key={it.id} value={it.id}>
                 {it.name}
