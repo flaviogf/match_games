@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { toast } from 'react-toastify';
 
-const env = 'development';
+const env = 'production';
 
 const production = 'https://backend.matchgames.flaviogf.com.br';
 
