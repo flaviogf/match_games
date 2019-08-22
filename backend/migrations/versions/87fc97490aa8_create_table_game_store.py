@@ -17,14 +17,15 @@ depends_on = None
 
 def upgrade():
     op.create_table('game_store',
+                    sa.Column('id',
+                              sa.Integer,
+                              primary_key=True),
                     sa.Column('game_id',
                               sa.Integer,
-                              sa.ForeignKey('game.id'),
-                              primary_key=True),
+                              sa.ForeignKey('game.id')),
                     sa.Column('store_id',
                               sa.Integer,
-                              sa.ForeignKey('store.id'),
-                              primary_key=True),
+                              sa.ForeignKey('store.id')),
                     sa.Column('value',
                               sa.Float,
                               nullable=False))

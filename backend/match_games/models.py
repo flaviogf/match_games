@@ -41,12 +41,12 @@ class Store(db.Model):
 
 
 class GameStore(db.Model):
+    id = db.Column(db.Integer,
+                   primary_key=True)
     game_id = db.Column(db.Integer,
-                        db.ForeignKey('game.id'),
-                        primary_key=True)
+                        db.ForeignKey('game.id'))
     store_id = db.Column(db.Integer,
-                         db.ForeignKey('store.id'),
-                         primary_key=True)
+                         db.ForeignKey('store.id'))
     value = db.Column(db.Float,
                       nullable=False)
     store = relationship('Store', back_populates='games')
