@@ -96,3 +96,17 @@ def update(id):
     game_store.value = request.json.get('value')
 
     return {'data': None, 'errors': []}, 200
+
+
+@blueprint.route('/api/v1/game-store/<int:id>', methods=['DELETE'])
+@transational()
+@json()
+def destroy(id):
+    game_store = GameStore.query.filter(GameStore.id == id).first()
+
+    if not game_store:
+        return {'data': None, 'errors': []}, 404
+
+    db.session.delete(game_store)
+
+    return {'data': None, 'errors': []}, 200

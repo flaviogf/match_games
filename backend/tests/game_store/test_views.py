@@ -184,6 +184,41 @@ class TestUpdate:
         assert data == result
 
 
+class TestDestroy:
+    def test_should_return_status_200_when_game_store_is_destroyed(self, client, db, game, store, game_store):
+        db.session.add(game)
+        db.session.add(store)
+        db.session.add(game_store)
+
+        db.session.commit()
+
+        response = client.delete('/api/v1/game-store/1')
+
+        assert 200 == response.status_code
+
+    def test_should_update_database_when_game_store_is_destroyed(self, client, db, game, store, game_store):
+        db.session.add(game)
+        db.session.add(store)
+        db.session.add(game_store)
+
+        db.session.commit()
+
+        client.delete('/api/v1/game-store/1')
+
+        assert 0 == GameStore.query.count()
+
+    def test_should_return_status_404_when_game_store_not_exists(self, client, db, game, store, game_store):
+        db.session.add(game)
+        db.session.add(store)
+        db.session.add(game_store)
+
+        db.session.commit()
+
+        response = client.delete('/api/v1/game-store/2')
+
+        assert 404 == response.status_code
+
+
 @pytest.fixture
 def game():
     return Game(name='Fifa 19', image='default.jpg')
