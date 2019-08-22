@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { toast } from 'react-toastify';
+
 import AdminTemplate from '../../components/AdminTemplate';
 import Input from '../../components/Input';
 
@@ -53,13 +55,18 @@ export default function AdminGameStore({ history, match }) {
   function onSubmit(e) {
     e.preventDefault();
 
-    api
-      .post('/api/v1/game-store', {
-        game_id: game,
-        store_id: store,
-        value
+    const id = match.params.id ? `/${match.params.id}` : '';
+    const method = match.params.id ? 'put' : 'post';
+
+    api[method](`/api/v1/game-store${id}`, {
+      game_id: game,
+      store_id: store,
+      value
+    })
+      .then(() => {
+        history.push('/admin/game-store');
+        toast.info('Operation successfully performed.');
       })
-      .then(() => history.push('/admin/game-store'))
       .catch(console.error);
   }
 
