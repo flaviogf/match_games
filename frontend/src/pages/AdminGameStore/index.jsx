@@ -70,6 +70,18 @@ export default function AdminGameStore({ history, match }) {
       .catch(console.error);
   }
 
+  function destroy(e) {
+    e.preventDefault();
+
+    api
+      .delete(`/api/v1/game-store/${match.params.id}`)
+      .then(() => {
+        history.push('/admin/game-store');
+        toast.info('Operation successfully performed.');
+      })
+      .catch(console.error);
+  }
+
   return (
     <AdminTemplate>
       <Content>
@@ -104,7 +116,7 @@ export default function AdminGameStore({ history, match }) {
 
           <Buttons>
             <Button type="submit">Save</Button>
-            <Button type="button" danger>
+            <Button type="button" danger onClick={destroy}>
               Delete
             </Button>
           </Buttons>
