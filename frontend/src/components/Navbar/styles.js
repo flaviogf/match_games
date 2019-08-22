@@ -46,12 +46,12 @@ export const Menu = styled.ul`
   transform: ${(props) =>
     props.visible ? 'translateY(0px);' : 'translateY(-30px);'};
   opacity: ${(props) => (props.visible ? '1' : '0')};
+  visibility: ${(props) => (props.visible ? 'visible' : 'hidden')};
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   background-color: #6ebc3b;
   transition: all 0.2s;
   position: absolute;
-  padding: 8px;
-  width: 175px;
+  width: 250px;
   z-index: 10;
   top: 50px;
   right: 0;
@@ -59,12 +59,16 @@ export const Menu = styled.ul`
 
 export const MenuItem = styled.li`
   align-items: center;
-  padding: 5px 8px;
+  padding: 10px 18px;
   cursor: pointer;
   display: flex;
   color: white;
 
   span {
     margin-left: 8px;
+  }
+
+  &:hover {
+    background-color: #91cf68;
   }
 `;
