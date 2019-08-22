@@ -127,6 +127,63 @@ class TestSingle:
         assert 404 == response.status_code
 
 
+class TestUpdate:
+    def test_should_return_status_200_when_update_game_store(self, client, db, game, store, game_store):
+        db.session.add(game)
+        db.session.add(store)
+        db.session.add(game_store)
+
+        db.session.commit()
+
+        data = {
+            'game_id': 1,
+            'store_id': 1,
+            'value': 199.99
+        }
+
+        response = client.put('/api/v1/game-store/1', json=data)
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_404_when_game_store_not_exists(self, client):
+        data = {
+            'game_id': 1,
+            'store_id': 1,
+            'value': 199.99
+        }
+
+        response = client.put('/api/v1/game-store/1', json=data)
+
+        assert 404 == response.status_code
+
+    def test_should_update_database_when_game_store_is_updated(self, client, db, game, store, game_store):
+        db.session.add(game)
+        db.session.add(game)
+        db.session.add(store)
+        db.session.add(store)
+        db.session.add(game_store)
+
+        db.session.commit()
+
+        data = {
+            'game_id': 2,
+            'store_id': 2,
+            'value': 299.99
+        }
+
+        client.put('/api/v1/game-store/1', json=data)
+
+        game_store = GameStore.query.first()
+
+        result = {
+            'game_id': game_store.game_id,
+            'store_id': game_store.store_id,
+            'value': game_store.value
+        }
+
+        assert data == result
+
+
 @pytest.fixture
 def game():
     return Game(name='Fifa 19', image='default.jpg')

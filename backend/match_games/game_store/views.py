@@ -62,6 +62,8 @@ def all_():
 
 
 @blueprint.route('/api/v1/game-store/<int:id>', methods=['GET'])
+@transational()
+@json()
 def single(id):
     game_store = GameStore.query.filter(GameStore.id == id).first()
 
@@ -76,4 +78,20 @@ def single(id):
         'value': game_store.value
     }
 
-    return {'data': game_store, 'errors': []}
+    return {'data': game_store, 'errors': []}, 200
+
+
+@blueprint.route('/api/v1/game-store/<int:id>', methods=['PUT'])
+@transational()
+@json()
+def update(id):
+    game_store = (GameStore.query.filter(GameStore.id == id).first())
+
+    if not game_store:
+        return {'data': None, 'errors': []}, 404
+
+    game_store.game_id = request.json.get('game_id')
+    game_store.store_id = request.json.get('store_id')
+    game_store.value = request.json.get('value')
+
+    return {'data': None, 'errors': []}, 200
