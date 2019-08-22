@@ -82,6 +82,7 @@ def single(id):
 
 
 @blueprint.route('/api/v1/game-store/<int:id>', methods=['PUT'])
+@validate(create_game_store_serializer)
 @transational()
 @json()
 def update(id):
