@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import AdminTemplate from '../../components/AdminTemplate';
 import Input from '../../components/Input';
 
-import { Content, Form, Title, Select, Button } from './styles';
+import { Content, Form, Title, Select, Button, Buttons } from './styles';
 
 import api from '../../services/api';
 
-export default function AdminGameStore({ history }) {
+export default function AdminGameStore({ history, match }) {
   const [games, setGames] = useState([]);
   const [stores, setStores] = useState([]);
 
@@ -35,6 +35,20 @@ export default function AdminGameStore({ history }) {
     loadGames();
     loadStores();
   }, []);
+
+  useEffect(() => {
+    if (!match.params.id) return;
+
+    api
+      .get(`/api/v1/game-store/${match.params.id}`)
+      .then((res) => res.data.data)
+      .then((gameStore) => {
+        setGame(gameStore.game_id);
+        setStore(gameStore.store_id);
+        setValue(gameStore.value);
+      })
+      .catch(console.error);
+  }, [match.params.id]);
 
   function onSubmit(e) {
     e.preventDefault();
@@ -65,7 +79,7 @@ export default function AdminGameStore({ history }) {
             <option>Select a game</option>
 
             {games.map((it) => (
-              <option key={it.id} value={it.id}>
+              <option key={it.id} value={it.id} selected={game === it.id}>
                 {it.name}
               </option>
             ))}
@@ -75,13 +89,18 @@ export default function AdminGameStore({ history }) {
             <option>Select a store</option>
 
             {stores.map((it) => (
-              <option key={it.id} value={it.id}>
+              <option key={it.id} value={it.id} selected={store === it.id}>
                 {it.name}
               </option>
             ))}
           </Select>
 
-          <Button>Salvar</Button>
+          <Buttons>
+            <Button type="submit">Save</Button>
+            <Button type="button" danger>
+              Delete
+            </Button>
+          </Buttons>
         </Form>
       </Content>
     </AdminTemplate>
