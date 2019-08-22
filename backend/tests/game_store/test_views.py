@@ -67,6 +67,23 @@ class TestCreate:
 
         assert 400 == response.status_code
 
+    def test_should_return_400_when_game_store_with_game_id_and_store_id_already_exists(self, client, db, game, store, game_store):
+        db.session.add(game)
+        db.session.add(store)
+        db.session.add(game_store)
+
+        db.session.commit()
+
+        data = {
+            'game_id': 1,
+            'store_id': 1,
+            'value': 199.99
+        }
+
+        response = client.post('/api/v1/game-store', json=data)
+
+        assert 400 == response.status_code
+
 
 class TestAll:
     def test_should_return_status_200(self, client, db, game):
@@ -92,6 +109,24 @@ class TestAll:
         assert isinstance(list_game_store, list)
 
 
+class TestSingle:
+    def test_should_return_status_200_when_game_store_exists(self, client, db, game, store, game_store):
+        db.session.add(game)
+        db.session.add(store)
+        db.session.add(game_store)
+
+        db.session.commit()
+
+        response = client.get('/api/v1/game-store/1')
+
+        assert 200 == response.status_code
+
+    def test_should_return_status_404_when_game_store_not_exists(self, client):
+        response = client.get('/api/v1/game-store/1')
+
+        assert 404 == response.status_code
+
+
 @pytest.fixture
 def game():
     return Game(name='Fifa 19', image='default.jpg')
@@ -100,3 +135,8 @@ def game():
 @pytest.fixture
 def store():
     return Store(name='Big Boy', image='default.jpg')
+
+
+@pytest.fixture
+def game_store():
+    return GameStore(game_id=1, store_id=1, value=199.99)

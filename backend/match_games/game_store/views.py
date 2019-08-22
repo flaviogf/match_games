@@ -16,8 +16,18 @@ blueprint = Blueprint('game_store', __name__)
 def create():
     body = request.json
 
-    game_store = GameStore(game_id=body.get('game_id'),
-                           store_id=body.get('store_id'),
+    game_id = body.get('game_id')
+    store_id = body.get('store_id')
+
+    game_store = (GameStore.query
+                  .filter(GameStore.game_id == game_id, GameStore.store_id == store_id)
+                  .first())
+
+    if game_store:
+        return {'data': None, 'errors': ['Game already exists in this store.']}, 400
+
+    game_store = GameStore(game_id=game_id,
+                           store_id=store_id,
                            value=body.get('value'))
 
     db.session.add(game_store)
@@ -41,10 +51,27 @@ def all_():
                        .offset(offset)
                        .all())
 
-    list_game_store = [dict(store=game_store.store.name,
+    list_game_store = [dict(id=game_store.id,
+                            store=game_store.store.name,
                             game=game_store.game.name,
                             value=game_store.value) for game_store in list_game_store]
 
     pagination = create_pagination(page, GameStore.query.all())
 
     return {'data': list_game_store, 'errors': []}, 200, pagination
+
+
+@blueprint.route('/api/v1/game-store/<int:id>', methods=['GET'])
+def single(id):
+    game_store = GameStore.query.filter(GameStore.id == id).first()
+
+    if not game_store:
+        return {'data': None, 'errors': ['Game store with that id not exists.']}, 404
+
+    game_store = {
+        'store': game_store.store.name,
+        'game': game_store.game.name,
+        'value': game_store.value
+    }
+
+    return {'data': game_store, 'errors': []}
