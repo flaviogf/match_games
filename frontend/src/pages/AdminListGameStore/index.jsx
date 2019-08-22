@@ -42,9 +42,9 @@ export default function AdminListGameStore({ history }) {
       <Container>
         <Card>
           <CardHeader>
-            <h2>ListGameStore</h2>
+            <h2>Game &gt; Store</h2>
 
-            <Link to="/admin/ListGameStore/create">
+            <Link to="/admin/game-store/create">
               <MdAdd size="24px" color="#d8d8d8" />
             </Link>
           </CardHeader>
