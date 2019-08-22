@@ -5,6 +5,11 @@ export const Container = styled.div`
   margin: 16px;
 `;
 
+export const Title = styled.div`
+  margin-bottom: 8px;
+  font-size: 2rem;
+`;
+
 export const Form = styled.form`
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
   background-color: #1c2937;
