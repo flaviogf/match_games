@@ -69,7 +69,9 @@ def single(id):
         return {'data': None, 'errors': ['Game store with that id not exists.']}, 404
 
     game_store = {
+        'store_id': game_store.store.id,
         'store': game_store.store.name,
+        'game_id': game_store.game.id,
         'game': game_store.game.name,
         'value': game_store.value
     }
