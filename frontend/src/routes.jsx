@@ -14,6 +14,7 @@ import AdminGame from './pages/AdminGame';
 import AdminStores from './pages/AdminStores';
 import AdminStore from './pages/AdminStore';
 import AdminListGameStore from './pages/AdminListGameStore';
+import AdminGameStore from './pages/AdminGameStore';
 
 import api from './services/api';
 
@@ -35,7 +36,16 @@ export default function Routes() {
         <PrivateRoute path="/admin/stores/create" component={AdminStore} />
         <PrivateRoute path="/admin/stores/:id" component={AdminStore} />
 
-        <PrivateRoute path="/admin/game-store" component={AdminListGameStore} />
+        <PrivateRoute
+          path="/admin/game-store"
+          exact
+          component={AdminListGameStore}
+        />
+        <PrivateRoute
+          path="/admin/game-store/create"
+          component={AdminGameStore}
+        />
+        <PrivateRoute path="/admin/game-store/:id" component={AdminGameStore} />
 
         <Redirect to="/" />
       </Switch>

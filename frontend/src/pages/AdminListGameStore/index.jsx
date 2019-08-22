@@ -66,9 +66,9 @@ export default function AdminListGameStore({ history }) {
               </tr>
             </thead>
             <tbody>
-              {listGameStore.map((gameStore, index) => (
+              {listGameStore.map((gameStore) => (
                 <tr
-                  key={index}
+                  key={gameStore.id}
                   onClick={() =>
                     history.push(`/admin/game-store/${gameStore.id}`)
                   }

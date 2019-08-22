@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
-  grid: content;
+  grid-area: content;
   margin: 16px;
 `;
 
