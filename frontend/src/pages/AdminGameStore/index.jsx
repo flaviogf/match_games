@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 
 import AdminTemplate from '../../components/AdminTemplate';
+import Input from '../../components/Input';
 
 import { Content, Form, Title, Select, Button } from './styles';
 
 import api from '../../services/api';
 
-export default function AdminGameStore() {
+export default function AdminGameStore({ history }) {
   const [games, setGames] = useState([]);
   const [stores, setStores] = useState([]);
+
+  const [game, setGame] = useState();
+  const [store, setStore] = useState();
+  const [value, setValue] = useState();
 
   useEffect(() => {
     function loadGames() {
@@ -33,6 +38,15 @@ export default function AdminGameStore() {
 
   function onSubmit(e) {
     e.preventDefault();
+
+    api
+      .post('/api/v1/game-store', {
+        game_id: game,
+        store_id: store,
+        value
+      })
+      .then(() => history.push('/admin/game-store'))
+      .catch(console.error);
   }
 
   return (
@@ -41,17 +55,24 @@ export default function AdminGameStore() {
         <Form onSubmit={onSubmit}>
           <Title>Game &gt; Store</Title>
 
-          <Select>
-            {games.map((game) => (
-              <option key={game.id} value={game.id}>
-                {game.name}
+          <Input
+            placeholder="Value"
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+          />
+
+          <Select onChange={(e) => setGame(e.target.value)}>
+            {games.map((it) => (
+              <option key={it.id} value={it.id}>
+                {it.name}
               </option>
             ))}
           </Select>
-          <Select>
-            {stores.map((store) => (
-              <option key={store.id} value={store.id}>
-                {store.name}
+
+          <Select onChange={(e) => setStore(e.target.value)}>
+            {stores.map((it) => (
+              <option key={it.id} value={it.id}>
+                {it.name}
               </option>
             ))}
           </Select>
