@@ -4,11 +4,11 @@ A simple application to manage games.
 
 ## Features
 
-- [ ] Admin
+- [x] Admin
   - [X] Authenticate Admin
   - [X] Register Game
   - [X] Register Store
-  - [ ] Register Game Store
+  - [X] Register Game Store
 
 - [ ] User
   - [X] List Games
