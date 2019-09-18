@@ -20,8 +20,6 @@ flask-marshmallow = "==0.10.1"
 marshmallow-sqlalchemy = "==0.17.0"
 flask-cors = "==3.0.8"
 pyjwt = "==1.7.1"
-pillow = "==6.1.0"
-rq = "==1.1.0"
 gunicorn = "==19.9.0"
 
 [requires]

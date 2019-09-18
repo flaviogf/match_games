@@ -3,12 +3,11 @@ from os.path import join
 
 from flask import Blueprint, current_app, request, url_for
 
-from match_games import db, q
+from match_games import db
 from match_games.decorators import json, transational, validate
 from match_games.models import Store
 from match_games.pagination import create_pagination
 from match_games.stores.serializers import create_store_serializer
-from match_games.tasks import compress_image
 
 blueprint = Blueprint('stores', __name__)
 
@@ -29,7 +28,6 @@ def create():
         store.image = f'{secrets.token_hex(8)}.{extension}'
         image_path = join(current_app.config.get('UPLOAD_DIR'), store.image)
         image.save(image_path)
-        q.enqueue(compress_image, image_path)
 
     db.session.add(store)
 
@@ -101,7 +99,6 @@ def update(id):
         store.image = f'{secrets.token_hex(8)}.{extension}'
         image_path = join(current_app.config.get('UPLOAD_DIR'), store.image)
         image.save(image_path)
-        q.enqueue(compress_image, image_path)
 
     db.session.commit()
 

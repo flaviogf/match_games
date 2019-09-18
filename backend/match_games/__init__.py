@@ -3,14 +3,11 @@ from flask_bcrypt import Bcrypt
 from flask_cors import CORS
 from flask_marshmallow import Marshmallow
 from flask_sqlalchemy import SQLAlchemy
-from redis import Redis
-from rq import Queue
 
 db = SQLAlchemy()
 ma = Marshmallow()
 bcrypt = Bcrypt()
 cors = CORS()
-q = Queue(connection=Redis())
 
 
 def create_app(config):
